@@ -1,3 +1,6 @@
+import { RemoveButton } from "../components/tables/RemoveButton";
+import { TableHead } from "../components/tables/TableHead";
+
 const initUsers = [
   {
     id: 1,
@@ -54,18 +57,7 @@ export const UsersPage = () => {
             minWidth: "1200px",
           }}
         >
-          <thead
-            className="table-dark sticky-top"
-            style={{ backgroundColor: "#6A1B2A", top: 0, zIndex: 2 }}
-          >
-            <tr>
-              <th className="py-3 px-4 text-center">ID</th>
-              <th className="py-3 px-4">Usuario</th>
-              <th className="py-3 px-4">Contraseña (Encriptada)</th>
-              <th className="py-3 px-4">Tickets</th>
-              <th className="py-3 px-4 text-center">Eliminar</th>
-            </tr>
-          </thead>
+          <TableHead table={"users"}/>
           <tbody>
             {initUsers.map((user) => (
               <tr key={user.id} style={{ height: "65px" }}>
@@ -85,18 +77,7 @@ export const UsersPage = () => {
                   )}
                 </td>
                 <td className="text-center">
-                  <button
-                    className="btn btn-danger"
-                    style={{
-                      width: "80%",
-                      height: "45px",
-                      fontSize: "1.3rem",
-                      fontWeight: "bold",
-                      lineHeight: "1",
-                    }}
-                  >
-                    X
-                  </button>
+                  <RemoveButton/>
                 </td>
               </tr>
             ))}

@@ -1,3 +1,6 @@
+import { RemoveButton } from "../components/tables/RemoveButton";
+import { TableHead } from "../components/tables/TableHead";
+
 const initSeats = [
   {
     id: 1,
@@ -32,19 +35,7 @@ export const SeatsPage = () => {
             minWidth: "1200px",
           }}
         >
-          <thead
-            className="table-dark sticky-top"
-            style={{ backgroundColor: "#6A1B2A", top: 0, zIndex: 2 }}
-          >
-            <tr>
-              <th className="py-3 px-4 text-center">ID</th>
-              <th className="py-3 px-4">Número</th>
-              <th className="py-3 px-4">Estado</th>
-              <th className="py-3 px-4">Clase</th>
-              <th className="py-3 px-4">Vuelo</th>
-              <th className="py-3 px-4 text-center">Eliminar</th>
-            </tr>
-          </thead>
+          <TableHead table={"seats"}/>
           <tbody>
             {initSeats.map((seat) => (
               <tr key={seat.id} style={{ height: "65px" }}>
@@ -54,18 +45,7 @@ export const SeatsPage = () => {
                 <td>{seat.classType}</td>
                 <td>{seat.flightId}</td>
                 <td className="text-center">
-                  <button
-                    className="btn btn-danger"
-                    style={{
-                      width: "80%",
-                      height: "45px",
-                      fontSize: "1.3rem",
-                      fontWeight: "bold",
-                      lineHeight: "1",
-                    }}
-                  >
-                    X
-                  </button>
+                 <RemoveButton/>
                 </td>
               </tr>
             ))}

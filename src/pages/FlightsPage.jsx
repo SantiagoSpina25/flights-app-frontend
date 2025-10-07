@@ -1,3 +1,6 @@
+import { RemoveButton } from "../components/tables/RemoveButton";
+import { TableHead } from "../components/tables/TableHead";
+
 const initFlights = [
   {
     id: "AER001",
@@ -49,20 +52,7 @@ export const FlightsPage = () => {
             minWidth: "1200px",
           }}
         >
-          <thead
-            className="table-dark sticky-top"
-            style={{ backgroundColor: "#6A1B2A", top: 0, zIndex: 2 }}
-          >
-            <tr>
-              <th className="py-3 px-4 text-center">ID</th>
-              <th className="py-3 px-4">Origen</th>
-              <th className="py-3 px-4">Destino</th>
-              <th className="py-3 px-4">Fecha</th>
-              <th className="py-3 px-4">Hora</th>
-              <th className="py-3 px-4">Aerolinea</th>
-              <th className="py-3 px-4 text-center">Eliminar</th>
-            </tr>
-          </thead>
+          <TableHead table={"flights"}/>
           <tbody>
             {initFlights.map((flight) => (
               <tr key={flight.id} style={{ height: "65px" }}>
@@ -73,18 +63,7 @@ export const FlightsPage = () => {
                 <td>{flight.hour}</td>
                 <td>{flight.airlineName}</td>
                 <td className="text-center">
-                  <button
-                    className="btn btn-danger"
-                    style={{
-                      width: "80%",
-                      height: "45px",
-                      fontSize: "1.3rem",
-                      fontWeight: "bold",
-                      lineHeight: "1",
-                    }}
-                  >
-                    X
-                  </button>
+                  <RemoveButton/>
                 </td>
               </tr>
             ))}
