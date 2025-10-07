@@ -1,5 +1,21 @@
 const initUsers = [
-  { id: 1, username: "santiago", password: "test", tickets: [] },
+  {
+    id: 1,
+    username: "santiago",
+    password: "test",
+    tickets: [
+      {
+        flightId: "IBE001",
+        airline: "Iberia",
+        date: "2025-10-15",
+        hour: "13:19:50",
+        origin: "Málaga",
+        destination: "Madrid",
+        classType: "FIRST_CLASS",
+        seatNumber: "1A",
+      },
+    ],
+  },
   { id: 2, username: "pepe", password: "test", tickets: [] },
   { id: 3, username: "guardabarro", password: "test", tickets: [] },
   { id: 4, username: "maria", password: "test", tickets: [] },
@@ -55,7 +71,7 @@ export const UsersPage = () => {
                 <td>{user.password}</td>
                 <td>
                   {user.tickets.length > 0 ? (
-                    user.tickets.join(", ")
+                    user.tickets.map(ticket=> ticket.flightId + " (" + ticket.seatNumber + ") ").join(", ")
                   ) : (
                     <span className="text-muted">Sin tickets</span>
                   )}
