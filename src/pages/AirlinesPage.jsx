@@ -2,7 +2,7 @@ const initAirlines = [
   {
     id: 1,
     name: "Iberia",
-    description: "test",
+    description: "Aerolineas iberia",
     flights: [
       {
         id: "IBE001",
@@ -13,20 +13,81 @@ const initAirlines = [
         airlineName: "Iberia",
       },
       {
-        id: "IBE101",
-        date: "2025-10-15",
-        hour: "13:19:50",
-        origin: "Málaga",
-        destination: "Madrid",
+        id: "IBE002",
+        date: "2025-11-02",
+        hour: "13:20:04",
+        origin: "Madrid",
+        destination: "Barcelona",
+        airlineName: "Iberia",
+      },
+      {
+        id: "IBE003",
+        date: "2025-11-10",
+        hour: "13:20:10",
+        origin: "Sevilla",
+        destination: "Valencia",
         airlineName: "Iberia",
       },
     ],
   },
-  { id: 2, name: "Air Europa", description: "test", flights: [] },
-  { id: 3, name: "Vueling", description: "test", flights: [] },
-  { id: 4, name: "test", description: "test", flights: [] },
-  { id: 5, name: "test", description: "test", flights: [] },
-  { id: 6, name: "test", description: "test", flights: [] },
+  {
+    id: 2,
+    name: "Air Europa",
+    description: "Aerolínea española con vuelos nacionales e internacionales",
+    flights: [
+      {
+        id: "AER001",
+        date: "2025-10-20",
+        hour: "13:20:22",
+        origin: "Madrid",
+        destination: "París",
+        airlineName: "Air Europa",
+      },
+      {
+        id: "AER002",
+        date: "2025-11-05",
+        hour: "13:20:28",
+        origin: "Palma de Mallorca",
+        destination: "Madrid",
+        airlineName: "Air Europa",
+      },
+      {
+        id: "AER003",
+        date: "2025-11-18",
+        hour: "13:20:35",
+        origin: "Barcelona",
+        destination: "Roma",
+        airlineName: "Air Europa",
+      },
+    ],
+  },
+  {
+    id: 3,
+    name: "Vueling",
+    description: "Aerolínea de bajo coste con sede en Barcelona",
+    flights: [],
+  },
+  {
+    id: 4,
+    name: "Ryanair",
+    description:
+      "Aerolínea irlandesa de bajo coste con amplia cobertura en Europa",
+    flights: [],
+  },
+  {
+    id: 5,
+    name: "Lufthansa",
+    description:
+      "Principal aerolínea alemana con vuelos a destinos internacionales",
+    flights: [],
+  },
+  {
+    id: 6,
+    name: "Air France",
+    description:
+      "Aerolínea nacional de Francia, reconocida por su servicio y red global",
+    flights: [],
+  },
 ];
 
 export const AirlinesPage = () => {
@@ -73,7 +134,7 @@ export const AirlinesPage = () => {
                 <td>{airline.description}</td>
                 <td>
                   {airline.flights.length > 0 ? (
-                    airline.flights.map(f=> f.id).join(", ")
+                    airline.flights.map((f) => f.id).join(", ")
                   ) : (
                     <span className="text-muted">Sin vuelos</span>
                   )}

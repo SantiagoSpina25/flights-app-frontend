@@ -1,8 +1,8 @@
 const initUsers = [
   {
     id: 1,
-    username: "santiago",
-    password: "test",
+    username: "admin",
+    password: "$2a$10$fWO6ysl71PcE2DY6zUDapukhDTiO4lniooENwJw4VcCK1bTgN7rWa",
     tickets: [
       {
         flightId: "IBE001",
@@ -16,15 +16,18 @@ const initUsers = [
       },
     ],
   },
-  { id: 2, username: "pepe", password: "test", tickets: [] },
-  { id: 3, username: "guardabarro", password: "test", tickets: [] },
-  { id: 4, username: "maria", password: "test", tickets: [] },
-  { id: 5, username: "juan", password: "test", tickets: [] },
-  { id: 6, username: "ana", password: "test", tickets: [] },
-  { id: 7, username: "carlos", password: "test", tickets: [] },
-  { id: 8, username: "sofia", password: "test", tickets: [] },
-  { id: 9, username: "pablo", password: "test", tickets: [] },
-  { id: 10, username: "lucas", password: "test", tickets: [] },
+  {
+    id: 2,
+    username: "user",
+    password: "$2a$10$tZXN.mix91Xd02OewCBgoOljhG7IXxZrjjA7TjimAwvlbLZM8RQPi",
+    tickets: [],
+  },
+  {
+    id: 3,
+    username: "pepe123",
+    password: "$2a$10$W7oED2l1PFpXi.261YIu3.smJCkUxL4d9FICGhrBfEC/QycSAsaES",
+    tickets: [],
+  },
 ];
 
 export const UsersPage = () => {
@@ -58,7 +61,7 @@ export const UsersPage = () => {
             <tr>
               <th className="py-3 px-4 text-center">ID</th>
               <th className="py-3 px-4">Usuario</th>
-              <th className="py-3 px-4">Contraseña</th>
+              <th className="py-3 px-4">Contraseña (Encriptada)</th>
               <th className="py-3 px-4">Tickets</th>
               <th className="py-3 px-4 text-center">Eliminar</th>
             </tr>
@@ -71,7 +74,12 @@ export const UsersPage = () => {
                 <td>{user.password}</td>
                 <td>
                   {user.tickets.length > 0 ? (
-                    user.tickets.map(ticket=> ticket.flightId + " (" + ticket.seatNumber + ") ").join(", ")
+                    user.tickets
+                      .map(
+                        (ticket) =>
+                          ticket.flightId + " (" + ticket.seatNumber + ") "
+                      )
+                      .join(", ")
                   ) : (
                     <span className="text-muted">Sin tickets</span>
                   )}
