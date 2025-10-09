@@ -1,34 +1,22 @@
+import { useEffect, useState } from "react";
 import { RemoveButton } from "../components/tables/RemoveButton";
 import { TableHead } from "../components/tables/TableHead";
-
-const initFlights = [
-  {
-    id: "AER001",
-    date: "2025-10-20",
-    hour: "13:20:22",
-    origin: "Madrid",
-    destination: "París",
-    airlineName: "Air Europa",
-  },
-  {
-    id: "AER002",
-    date: "2025-11-05",
-    hour: "13:20:28",
-    origin: "Palma de Mallorca",
-    destination: "Madrid",
-    airlineName: "Air Europa",
-  },
-  {
-    id: "IBE003",
-    date: "2025-11-10",
-    hour: "13:20:10",
-    origin: "Sevilla",
-    destination: "Valencia",
-    airlineName: "Iberia",
-  },
-];
+import { findAll } from "../services/AppService";
 
 export const FlightsPage = () => {
+  const [flights, setFlights] = useState([]);
+  
+    //Obtiene los vuelos del backend
+    const getFlights = async () => {
+      const result = await findAll("flights");
+      setFlights(result.data);
+    };
+  
+    //Cuando cambie, obtiene los vuelos
+    useEffect(() => {
+      getFlights();
+    }, []);
+  
   return (
     <div className="container mt-5">
       <h2 className="text-center mb-5 display-6 fw-bold text-dark">
@@ -54,7 +42,7 @@ export const FlightsPage = () => {
         >
           <TableHead table={"flights"}/>
           <tbody>
-            {initFlights.map((flight) => (
+            {flights.map((flight) => (
               <tr key={flight.id} style={{ height: "65px" }}>
                 <td className="text-center fw-semibold">{flight.id}</td>
                 <td>{flight.origin}</td>

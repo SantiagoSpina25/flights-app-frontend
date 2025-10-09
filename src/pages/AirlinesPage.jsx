@@ -1,99 +1,22 @@
+import { useEffect, useState } from "react";
 import { RemoveButton } from "../components/tables/RemoveButton";
 import { TableHead } from "../components/tables/TableHead";
-
-const initAirlines = [
-  {
-    id: 1,
-    name: "Iberia",
-    description: "Aerolineas iberia",
-    flights: [
-      {
-        id: "IBE001",
-        date: "2025-10-15",
-        hour: "13:19:50",
-        origin: "Málaga",
-        destination: "Madrid",
-        airlineName: "Iberia",
-      },
-      {
-        id: "IBE002",
-        date: "2025-11-02",
-        hour: "13:20:04",
-        origin: "Madrid",
-        destination: "Barcelona",
-        airlineName: "Iberia",
-      },
-      {
-        id: "IBE003",
-        date: "2025-11-10",
-        hour: "13:20:10",
-        origin: "Sevilla",
-        destination: "Valencia",
-        airlineName: "Iberia",
-      },
-    ],
-  },
-  {
-    id: 2,
-    name: "Air Europa",
-    description: "Aerolínea española con vuelos nacionales e internacionales",
-    flights: [
-      {
-        id: "AER001",
-        date: "2025-10-20",
-        hour: "13:20:22",
-        origin: "Madrid",
-        destination: "París",
-        airlineName: "Air Europa",
-      },
-      {
-        id: "AER002",
-        date: "2025-11-05",
-        hour: "13:20:28",
-        origin: "Palma de Mallorca",
-        destination: "Madrid",
-        airlineName: "Air Europa",
-      },
-      {
-        id: "AER003",
-        date: "2025-11-18",
-        hour: "13:20:35",
-        origin: "Barcelona",
-        destination: "Roma",
-        airlineName: "Air Europa",
-      },
-    ],
-  },
-  {
-    id: 3,
-    name: "Vueling",
-    description: "Aerolínea de bajo coste con sede en Barcelona",
-    flights: [],
-  },
-  {
-    id: 4,
-    name: "Ryanair",
-    description:
-      "Aerolínea irlandesa de bajo coste con amplia cobertura en Europa",
-    flights: [],
-  },
-  {
-    id: 5,
-    name: "Lufthansa",
-    description:
-      "Principal aerolínea alemana con vuelos a destinos internacionales",
-    flights: [],
-  },
-  {
-    id: 6,
-    name: "Air France",
-    description:
-      "Aerolínea nacional de Francia, reconocida por su servicio y red global",
-    flights: [],
-  },
-];
+import { findAll } from "../services/AppService";
 
 export const AirlinesPage = () => {
+  const [airlines, setAirlines] = useState([]);
+
+  //Obtiene las aerolineas del backend
+  const getAirlines = async () => {
+    const result = await findAll("airlines");
+    setAirlines(result.data);
+  };
+
+  //Cuando cambie, obtiene las aerolineas
+  useEffect(() => {
+    getAirlines();
+  }, []);
+
   return (
     <div className="container mt-5">
       <h2 className="text-center mb-5 display-6 fw-bold text-dark">
@@ -119,7 +42,7 @@ export const AirlinesPage = () => {
         >
           <TableHead table={"airlines"} />
           <tbody>
-            {initAirlines.map((airline) => (
+            {airlines.map((airline) => (
               <tr key={airline.id} style={{ height: "65px" }}>
                 <td className="text-center fw-semibold">{airline.id}</td>
                 <td>{airline.name}</td>
@@ -132,7 +55,7 @@ export const AirlinesPage = () => {
                   )}
                 </td>
                 <td className="text-center">
-                  <RemoveButton/>
+                  <RemoveButton />
                 </td>
               </tr>
             ))}

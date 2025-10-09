@@ -1,17 +1,21 @@
+import { useEffect, useState } from "react";
 import { RemoveButton } from "../components/tables/RemoveButton";
 import { TableHead } from "../components/tables/TableHead";
-
-const initSeats = [
-  {
-    id: 1,
-    number: "1A",
-    status: "SOLD",
-    classType: "FIRST_CLASS",
-    flightId: "IBE001",
-  },
-];
+import { findAll } from "../services/AppService";
 
 export const SeatsPage = () => {
+   const [seats, setSeats] = useState([]);
+    
+      //Obtiene los asientos del backend
+      const getSeats = async () => {
+        const result = await findAll("seats");
+        setSeats(result.data);
+      };
+    
+      //Cuando cambie, obtiene los asientos
+      useEffect(() => {
+        getSeats();
+      }, []);
   return (
     <div className="container mt-5">
       <h2 className="text-center mb-5 display-6 fw-bold text-dark">
@@ -37,7 +41,7 @@ export const SeatsPage = () => {
         >
           <TableHead table={"seats"}/>
           <tbody>
-            {initSeats.map((seat) => (
+            {seats.map((seat) => (
               <tr key={seat.id} style={{ height: "65px" }}>
                 <td className="text-center fw-semibold">{seat.id}</td>
                 <td>{seat.number}</td>
