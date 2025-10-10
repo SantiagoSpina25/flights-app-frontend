@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { RemoveButton } from "../components/tables/RemoveButton";
 import { TableHead } from "../components/tables/TableHead";
-import { findAll } from "../services/AppService";
+import { deleteById, findAll } from "../services/AppService";
 
 export const AirlinesPage = () => {
   const [airlines, setAirlines] = useState([]);
@@ -16,6 +16,16 @@ export const AirlinesPage = () => {
   useEffect(() => {
     getAirlines();
   }, []);
+
+  const handlerRemoveAirline = (id) => {
+    deleteById("airlines", id);
+
+    //Filtra todos las aerolineas que no tengan el mismo id que el que fue eliminado
+    setAirlines(airlines.filter((airline) => airline.id != id));
+
+    //TODO agregar un popup en vez del console log
+    console.log("Aerolinea borrada");
+  };
 
   return (
     <div className="container mt-5">
@@ -55,7 +65,10 @@ export const AirlinesPage = () => {
                   )}
                 </td>
                 <td className="text-center">
-                  <RemoveButton />
+                  <RemoveButton
+                    handlerRemove={handlerRemoveAirline}
+                    id={airline.id}
+                  />
                 </td>
               </tr>
             ))}

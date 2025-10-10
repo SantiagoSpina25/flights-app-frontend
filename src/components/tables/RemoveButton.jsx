@@ -1,4 +1,4 @@
-export const RemoveButton = () => {
+export const RemoveButton = ({ handlerRemove, id }) => {
   return (
     <button
       className="btn btn-danger"
@@ -9,6 +9,7 @@ export const RemoveButton = () => {
         fontWeight: "bold",
         lineHeight: "1",
       }}
+      onClick={() => handlerRemove(id)}
     >
       X
     </button>

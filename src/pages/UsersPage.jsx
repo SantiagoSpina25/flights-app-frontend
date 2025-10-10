@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { RemoveButton } from "../components/tables/RemoveButton";
 import { TableHead } from "../components/tables/TableHead";
-import { findAll } from "../services/AppService";
+import { deleteById, findAll } from "../services/AppService";
 
 export const UsersPage = () => {
   const [users, setUsers] = useState([]);
@@ -16,6 +16,16 @@ export const UsersPage = () => {
   useEffect(() => {
     getUsers();
   }, []);
+
+
+  const handlerRemoveUser = (id) => {
+    deleteById("users", id)
+    //Filtra todos los usuarios que no tengan el mismo id que el que fue eliminado
+    setUsers(users.filter((user)=> user.id != id))
+
+    //TODO agregar un popup en vez del console log
+    console.log("Usuario borrado")
+  }
 
   return (
     <div className="container mt-5">
@@ -60,7 +70,7 @@ export const UsersPage = () => {
                   )}
                 </td>
                 <td className="text-center">
-                  <RemoveButton />
+                  <RemoveButton handlerRemoveUser={handlerRemoveUser} id={user.id}/>
                 </td>
               </tr>
             ))}

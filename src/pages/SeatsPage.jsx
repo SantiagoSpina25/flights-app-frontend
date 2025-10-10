@@ -1,21 +1,32 @@
 import { useEffect, useState } from "react";
 import { RemoveButton } from "../components/tables/RemoveButton";
 import { TableHead } from "../components/tables/TableHead";
-import { findAll } from "../services/AppService";
+import { deleteById, findAll } from "../services/AppService";
 
 export const SeatsPage = () => {
-   const [seats, setSeats] = useState([]);
-    
-      //Obtiene los asientos del backend
-      const getSeats = async () => {
-        const result = await findAll("seats");
-        setSeats(result.data);
-      };
-    
-      //Cuando cambie, obtiene los asientos
-      useEffect(() => {
-        getSeats();
-      }, []);
+  const [seats, setSeats] = useState([]);
+
+  //Obtiene los asientos del backend
+  const getSeats = async () => {
+    const result = await findAll("seats");
+    setSeats(result.data);
+  };
+
+  //Cuando cambie, obtiene los asientos
+  useEffect(() => {
+    getSeats();
+  }, []);
+
+  const handlerRemoveSeat = (id) => {
+    deleteById("seats", id);
+
+    //Filtra todos los asientos que no tengan el mismo id que el que fue eliminado
+    setSeats(seats.filter((seat) => seat.id != id));
+
+    //TODO agregar un popup en vez del console log
+    console.log("Asiento borrado");
+  };
+
   return (
     <div className="container mt-5">
       <h2 className="text-center mb-5 display-6 fw-bold text-dark">
@@ -39,7 +50,7 @@ export const SeatsPage = () => {
             minWidth: "1200px",
           }}
         >
-          <TableHead table={"seats"}/>
+          <TableHead table={"seats"} />
           <tbody>
             {seats.map((seat) => (
               <tr key={seat.id} style={{ height: "65px" }}>
@@ -49,7 +60,10 @@ export const SeatsPage = () => {
                 <td>{seat.classType}</td>
                 <td>{seat.flightId}</td>
                 <td className="text-center">
-                 <RemoveButton/>
+                  <RemoveButton
+                    handlerRemove={handlerRemoveSeat}
+                    id={seat.id}
+                  />
                 </td>
               </tr>
             ))}
