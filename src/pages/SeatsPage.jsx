@@ -17,8 +17,13 @@ export const SeatsPage = () => {
     getSeats();
   }, []);
 
-  const handlerRemoveSeat = (id) => {
-    deleteById("seats", id);
+  const handlerRemoveSeat = async (id) => {
+    const result = await deleteById("seats", id);
+
+    if (result == null) {
+      console.log("Error al borrar");
+      return;
+    }
 
     //Filtra todos los asientos que no tengan el mismo id que el que fue eliminado
     setSeats(seats.filter((seat) => seat.id != id));

@@ -17,8 +17,13 @@ export const AirlinesPage = () => {
     getAirlines();
   }, []);
 
-  const handlerRemoveAirline = (id) => {
-    deleteById("airlines", id);
+  const handlerRemoveAirline = async (id) => {
+    const result = await deleteById("airlines", id);
+
+    if (result == null) {
+      console.log("Error al borrar");
+      return;
+    }
 
     //Filtra todos las aerolineas que no tengan el mismo id que el que fue eliminado
     setAirlines(airlines.filter((airline) => airline.id != id));

@@ -17,8 +17,13 @@ export const FlightsPage = () => {
     getFlights();
   }, []);
 
-  const handlerRemoveFlight = (id) => {
-    deleteById("flights", id);
+  const handlerRemoveFlight = async (id) => {
+    const result = await deleteById("flights", id);
+
+    if (result == null) {
+      console.log("Error al borrar");
+      return;
+    }
 
     //Filtra todos los vuelos que no tengan el mismo id que el que fue eliminado
     setFlights(flights.filter((flight) => flight.id != id));

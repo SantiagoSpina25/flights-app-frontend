@@ -17,15 +17,19 @@ export const UsersPage = () => {
     getUsers();
   }, []);
 
+  const handlerRemoveUser = async (id) => {
+    const result = await deleteById("users", id);
 
-  const handlerRemoveUser = (id) => {
-    deleteById("users", id)
+    if (result == null) {
+      console.log("Error al borrar");
+      return;
+    }
     //Filtra todos los usuarios que no tengan el mismo id que el que fue eliminado
-    setUsers(users.filter((user)=> user.id != id))
+    setUsers(users.filter((user) => user.id != id));
 
     //TODO agregar un popup en vez del console log
-    console.log("Usuario borrado")
-  }
+    console.log("Usuario borrado");
+  };
 
   return (
     <div className="container mt-5">
@@ -70,7 +74,10 @@ export const UsersPage = () => {
                   )}
                 </td>
                 <td className="text-center">
-                  <RemoveButton handlerRemoveUser={handlerRemoveUser} id={user.id}/>
+                  <RemoveButton
+                    handlerRemoveUser={handlerRemoveUser}
+                    id={user.id}
+                  />
                 </td>
               </tr>
             ))}

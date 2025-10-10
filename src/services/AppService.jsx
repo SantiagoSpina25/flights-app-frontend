@@ -19,7 +19,9 @@ export const findAll = async (table) => {
 export const deleteById = async (table, id) => {
   try {
     const response = await axios.delete(BASE_URL + "/" + table + "/" + id);
+    return response;
   } catch (error) {
     console.log(error);
   }
+  return null;
 };
