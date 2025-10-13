@@ -35,6 +35,9 @@ export const NavBar = () => {
             </li>
           </ul>
         </div>
+        <Link className="nav-link text-white" to="/login">
+          Login
+        </Link>
       </div>
     </nav>
   );

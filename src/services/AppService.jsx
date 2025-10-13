@@ -1,11 +1,11 @@
-import axios from "axios";
+import apiClient from "./ApiClient";
 
 const BASE_URL = "http://localhost:8080/api";
 
 //GET
 export const findAll = async (table) => {
   try {
-    const response = await axios.get(BASE_URL + "/" + table);
+    const response = await apiClient.get(BASE_URL + "/" + table);
     return response;
   } catch (error) {
     console.log(error);
@@ -16,7 +16,7 @@ export const findAll = async (table) => {
 //POST
 export const createUser = async ({ username, password }) => {
   try {
-    const response = await axios.post(BASE_URL + "/users/register", {
+    const response = await apiClient.post(BASE_URL + "/users/register", {
       username,
       password,
     });
@@ -29,7 +29,7 @@ export const createUser = async ({ username, password }) => {
 
 export const createAirline = async ({ name, description }) => {
   try {
-    const response = await axios.post(BASE_URL + "/airlines", {
+    const response = await apiClient.post(BASE_URL + "/airlines", {
       name,
       description,
     });
@@ -51,7 +51,7 @@ export const createFlight = async ({
 }) => {
   console.log(id, origin, destination, date, hour, airlineId);
   try {
-    const response = await axios.post(BASE_URL + "/flights", {
+    const response = await apiClient.post(BASE_URL + "/flights", {
       id,
       origin,
       destination,
@@ -72,7 +72,7 @@ export const createFlight = async ({
 
 export const createSeat = async ({ number, class_type, status, flightId }) => {
   try {
-    const response = await axios.post(BASE_URL + "/seats", {
+    const response = await apiClient.post(BASE_URL + "/seats", {
       number,
       class_type,
       status,
@@ -94,7 +94,7 @@ export const createSeat = async ({ number, class_type, status, flightId }) => {
 //DELETE
 export const deleteById = async (table, id) => {
   try {
-    const response = await axios.delete(BASE_URL + "/" + table + "/" + id);
+    const response = await apiClient.delete(BASE_URL + "/" + table + "/" + id);
     return response;
   } catch (error) {
     console.log(error);

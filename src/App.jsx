@@ -9,6 +9,8 @@ import { NewUsersPage } from "./pages/create/NewUsersPage";
 import { NewAirlinesPage } from "./pages/create/NewAirlinesPage";
 import { NewFlightsPage } from "./pages/create/NewFlightsPage";
 import { NewSeatsPage } from "./pages/create/NewSeatsPage";
+import { LoginPage } from "./pages/LoginPage";
+import { RegisterPage } from "./pages/RegisterPage";
 
 
 export const App = () => {
@@ -27,6 +29,8 @@ export const App = () => {
             <Route path="/airlines/new" element={<NewAirlinesPage />} />
             <Route path="/flights/new" element={<NewFlightsPage />} />
             <Route path="/seats/new" element={<NewSeatsPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
           </Routes>
         </div>
         <Footer />
