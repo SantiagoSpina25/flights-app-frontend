@@ -2,7 +2,7 @@ export const TableHead = ({ table }) => {
   const headersByTable = {
     users: ["ID", "Usuario", "Contraseña (Encriptada)", "Tickets", "Eliminar"],
     airlines: ["ID", "Nombre", "Descripción", "Vuelos", "Eliminar"],
-    flights: ["ID", "Origen", "Destino", "Fecha", "Hora", "Estado", "Eliminar"],
+    flights: ["ID", "Origen", "Destino", "Fecha", "Hora", "Aerolinea", "Eliminar"],
     seats: ["ID", "Número", "Clase", "Estado", "Vuelo", "Eliminar"]
   };
 

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { RemoveButton } from "../components/tables/RemoveButton";
 import { TableHead } from "../components/tables/TableHead";
 import { deleteById, findAll } from "../services/AppService";
+import { CreateButton } from "../components/tables/CreateButton";
 
 export const AirlinesPage = () => {
   const [airlines, setAirlines] = useState([]);
@@ -37,7 +38,7 @@ export const AirlinesPage = () => {
       <h2 className="text-center mb-5 display-6 fw-bold text-dark">
         Tabla de aerolineas
       </h2>
-
+      <CreateButton table={"airlines"} />
       <div
         className="table-responsive"
         style={{
