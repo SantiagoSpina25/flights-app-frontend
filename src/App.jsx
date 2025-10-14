@@ -11,7 +11,7 @@ import { NewFlightsPage } from "./pages/create/NewFlightsPage";
 import { NewSeatsPage } from "./pages/create/NewSeatsPage";
 import { LoginPage } from "./pages/LoginPage";
 import { RegisterPage } from "./pages/RegisterPage";
-
+import { PrivateRoute } from "./routes/PrivateRoute";
 
 export const App = () => {
   return (
@@ -21,16 +21,77 @@ export const App = () => {
         <div className="container mt-4 mb-4 flex-grow-1">
           <Routes>
             <Route path="/" element={<Navigate to="/users" />} />
-            <Route path="/users" element={<UsersPage />} />
-            <Route path="/airlines" element={<AirlinesPage />} />
-            <Route path="/flights" element={<FlightsPage />} />
-            <Route path="/seats" element={<SeatsPage />} />
-            <Route path="/users/new" element={<NewUsersPage />} />
-            <Route path="/airlines/new" element={<NewAirlinesPage />} />
-            <Route path="/flights/new" element={<NewFlightsPage />} />
-            <Route path="/seats/new" element={<NewSeatsPage />} />
+
+            {/* rutas públicas */}
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
+
+            {/* rutas protegidas: envolver cada element con PrivateRoute */}
+            <Route
+              path="/users"
+              element={
+                <PrivateRoute>
+                  <UsersPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/airlines"
+              element={
+                <PrivateRoute>
+                  <AirlinesPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/flights"
+              element={
+                <PrivateRoute>
+                  <FlightsPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/seats"
+              element={
+                <PrivateRoute>
+                  <SeatsPage />
+                </PrivateRoute>
+              }
+            />
+
+            <Route
+              path="/users/new"
+              element={
+                <PrivateRoute>
+                  <NewUsersPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/airlines/new"
+              element={
+                <PrivateRoute>
+                  <NewAirlinesPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/flights/new"
+              element={
+                <PrivateRoute>
+                  <NewFlightsPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/seats/new"
+              element={
+                <PrivateRoute>
+                  <NewSeatsPage />
+                </PrivateRoute>
+              }
+            />
           </Routes>
         </div>
         <Footer />
