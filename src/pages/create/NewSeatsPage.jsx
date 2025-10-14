@@ -22,8 +22,8 @@ export const NewSeatsPage = () => {
 
     const seat = {
       number: form.number.trim(),
-      class_type: form.class_type.trim(),
-      status: form.status,
+      class_type: form.class_type.trim().toUpperCase(),
+      status: form.status.toUpperCase(),
       flightId: form.flightId.trim(),
     };
 
@@ -71,22 +71,23 @@ export const NewSeatsPage = () => {
           </div>
 
           <div className="mb-3">
-            <label htmlFor="class_type" className="form-label">
+            <label for="class_type" class="form-label">
               Clase
             </label>
-            <input
+            <select
               id="class_type"
               name="class_type"
-              type="text"
-              className="form-control"
-              value={form.class_type}
+              class="form-select"
               onChange={handleChange}
-              placeholder="Clase del asiento"
-              required
-            />
+              value={form.class_type}
+            >
+              <option>Economy</option>
+              <option>Business</option>
+              <option>First_class</option>
+            </select>
           </div>
 
-          <div className="mb-3">
+          {/* <div className="mb-3">
             <label htmlFor="status" className="form-label">
               Estado
             </label>
@@ -99,6 +100,22 @@ export const NewSeatsPage = () => {
               onChange={handleChange}
               placeholder="Estado del asiento"
             />
+          </div> */}
+
+          <div className="mb-3">
+            <label for="status" class="form-label">
+              Estado
+            </label>
+            <select
+              id="status"
+              name="status"
+              class="form-select"
+              onChange={handleChange}
+              value={form.status}
+            >
+              <option>Available</option>
+              <option>Sold</option>
+            </select>
           </div>
 
           <div className="mb-3">
