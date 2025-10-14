@@ -3,6 +3,7 @@ import { RemoveButton } from "../components/tables/RemoveButton";
 import { TableHead } from "../components/tables/TableHead";
 import { deleteById, findAll } from "../services/AppService";
 import { CreateButton } from "../components/tables/CreateButton";
+import { BookSeatButton } from "../components/tables/BookSeatbutton";
 
 export const UsersPage = () => {
   const [users, setUsers] = useState([]);
@@ -38,7 +39,7 @@ export const UsersPage = () => {
         Tabla de usuarios
       </h2>
       <CreateButton table={"users"}/>
-
+      <BookSeatButton/>
       <div
         className="table-responsive"
         style={{

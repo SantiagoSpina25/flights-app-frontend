@@ -17,4 +17,20 @@ apiClient.interceptors.request.use((config) => {
   return config;
 }, (error) => Promise.reject(error));
 
+//capturar 401/403 y redirigir al login (Sirve para cuando expira el token)
+apiClient.interceptors.response.use(
+  res => res,
+  err => {
+    const status = err?.response?.status;
+    if (status === 401 || status === 403) {
+      // limpiar sesión
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      // redirigir al login (sin hooks)
+      window.location.href = "/login";
+    }
+    return Promise.reject(err);
+  }
+);
+
 export default apiClient;

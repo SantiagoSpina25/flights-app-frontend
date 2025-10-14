@@ -89,6 +89,23 @@ export const createSeat = async ({ number, class_type, status, flightId }) => {
   return null;
 };
 
+export const bookSeat = async ({userId, seatId}) => {
+  try {
+    const response = await apiClient.post(BASE_URL + "/seats/book", {
+      userId,
+      seatId
+    });
+
+    return response;
+  } catch (error) {
+    console.log(error);
+    if (error.response) {
+      console.error("Response body:", error.response.data);
+    }
+  }
+  return null;
+}
+
 //TODO CONTROLAR CONSTRAINTS
 
 //DELETE

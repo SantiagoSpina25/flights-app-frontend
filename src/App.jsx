@@ -9,9 +9,10 @@ import { NewUsersPage } from "./pages/create/NewUsersPage";
 import { NewAirlinesPage } from "./pages/create/NewAirlinesPage";
 import { NewFlightsPage } from "./pages/create/NewFlightsPage";
 import { NewSeatsPage } from "./pages/create/NewSeatsPage";
-import { LoginPage } from "./pages/LoginPage";
-import { RegisterPage } from "./pages/RegisterPage";
+import { LoginPage } from "./pages/login/LoginPage";
+import { RegisterPage } from "./pages/login/RegisterPage";
 import { PrivateRoute } from "./routes/PrivateRoute";
+import { BookSeatPage } from "./pages/BookSeatPage";
 
 export const App = () => {
   return (
@@ -26,7 +27,7 @@ export const App = () => {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
 
-            {/* rutas protegidas: envolver cada element con PrivateRoute */}
+            {/* rutas protegidas*/}
             <Route
               path="/users"
               element={
@@ -89,6 +90,14 @@ export const App = () => {
               element={
                 <PrivateRoute>
                   <NewSeatsPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/users/bookSeat"
+              element={
+                <PrivateRoute>
+                  <BookSeatPage />
                 </PrivateRoute>
               }
             />
