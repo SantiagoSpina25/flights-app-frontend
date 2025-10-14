@@ -40,7 +40,7 @@ export const LoginPage = () => {
     }
 
     login({ token, username });
-    navigate("/users");
+    navigate("/home");
   };
 
   return (

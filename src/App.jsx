@@ -13,21 +13,30 @@ import { LoginPage } from "./pages/login/LoginPage";
 import { RegisterPage } from "./pages/login/RegisterPage";
 import { PrivateRoute } from "./routes/PrivateRoute";
 import { BookSeatPage } from "./pages/BookSeatPage";
+import { HomePage } from "./pages/HomePage";
 
 export const App = () => {
   return (
     <BrowserRouter>
       <div className="d-flex flex-column min-vh-100">
         <NavBar />
-        <div className="container mt-4 mb-4 flex-grow-1">
+        <div className="mt-4 mb-4 flex-grow-1">
           <Routes>
-            <Route path="/" element={<Navigate to="/users" />} />
+            <Route path="/" element={<Navigate to="/home" />} />
 
             {/* rutas públicas */}
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
 
             {/* rutas protegidas*/}
+            <Route
+              path="/home"
+              element={
+                <PrivateRoute>
+                  <HomePage />
+                </PrivateRoute>
+              }
+            />
             <Route
               path="/users"
               element={

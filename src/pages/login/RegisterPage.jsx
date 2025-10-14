@@ -26,7 +26,7 @@ export const RegisterPage = () => {
     }
 
     // registro ok: redirigir al login (o auto-login si tu backend devuelve token)
-    navigate("/login");
+    navigate("/home");
   };
 
   return (
