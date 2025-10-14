@@ -29,8 +29,6 @@ export const SeatsPage = () => {
     //Filtra todos los asientos que no tengan el mismo id que el que fue eliminado
     setSeats(seats.filter((seat) => seat.id != id));
 
-    //TODO agregar un popup en vez del console log
-    console.log("Asiento borrado");
   };
 
   return (

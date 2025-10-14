@@ -28,9 +28,6 @@ export const AirlinesPage = () => {
 
     //Filtra todos las aerolineas que no tengan el mismo id que el que fue eliminado
     setAirlines(airlines.filter((airline) => airline.id != id));
-
-    //TODO agregar un popup en vez del console log
-    console.log("Aerolinea borrada");
   };
 
   return (

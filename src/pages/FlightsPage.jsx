@@ -28,9 +28,6 @@ export const FlightsPage = () => {
 
     //Filtra todos los vuelos que no tengan el mismo id que el que fue eliminado
     setFlights(flights.filter((flight) => flight.id != id));
-
-    //TODO agregar un popup en vez del console log
-    console.log("Vuelo borrado");
   };
 
   return (

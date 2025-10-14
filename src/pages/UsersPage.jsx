@@ -29,8 +29,6 @@ export const UsersPage = () => {
     //Filtra todos los usuarios que no tengan el mismo id que el que fue eliminado
     setUsers(users.filter((user) => user.id != id));
 
-    //TODO agregar un popup en vez del console log
-    console.log("Usuario borrado");
   };
 
   return (
@@ -78,7 +76,7 @@ export const UsersPage = () => {
                 </td>
                 <td className="text-center">
                   <RemoveButton
-                    handlerRemoveUser={handlerRemoveUser}
+                    handlerRemove={handlerRemoveUser}
                     id={user.id}
                   />
                 </td>
