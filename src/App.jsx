@@ -1,10 +1,10 @@
+import { Navigate, Route, BrowserRouter, Routes } from "react-router-dom";
 import { NavBar } from "./components/NavBar";
 import { Footer } from "./components/Footer";
-import { AirlinesPage } from "./pages/AirlinesPage";
-import { UsersPage } from "./pages/UsersPage";
-import { FlightsPage } from "./pages/FlightsPage";
-import { Navigate, Route, BrowserRouter, Routes } from "react-router-dom";
-import { SeatsPage } from "./pages/SeatsPage";
+import { AirlinesPage } from "./pages/tables/AirlinesPage";
+import { UsersPage } from "./pages/tables/UsersPage";
+import { FlightsPage } from "./pages/tables/FlightsPage";
+import { SeatsPage } from "./pages/tables/SeatsPage";
 import { NewUsersPage } from "./pages/create/NewUsersPage";
 import { NewAirlinesPage } from "./pages/create/NewAirlinesPage";
 import { NewFlightsPage } from "./pages/create/NewFlightsPage";
@@ -14,6 +14,7 @@ import { RegisterPage } from "./pages/login/RegisterPage";
 import { PrivateRoute } from "./routes/PrivateRoute";
 import { BookSeatPage } from "./pages/BookSeatPage";
 import { HomePage } from "./pages/HomePage";
+import { FlightDetailPage } from "./pages/FlightDetailPage";
 
 export const App = () => {
   return (
@@ -27,6 +28,7 @@ export const App = () => {
             {/* rutas públicas */}
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
+            <Route path="/home" element={<HomePage />} />
 
             {/* rutas protegidas*/}
             <Route
@@ -107,6 +109,14 @@ export const App = () => {
               element={
                 <PrivateRoute>
                   <BookSeatPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/flights/:id"
+              element={
+                <PrivateRoute>
+                  <FlightDetailPage />
                 </PrivateRoute>
               }
             />

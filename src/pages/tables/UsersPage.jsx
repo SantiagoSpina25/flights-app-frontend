@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { RemoveButton } from "../components/tables/RemoveButton";
-import { TableHead } from "../components/tables/TableHead";
-import { deleteById, findAll } from "../services/AppService";
-import { CreateButton } from "../components/tables/CreateButton";
-import { BookSeatButton } from "../components/tables/BookSeatbutton";
+import { RemoveButton } from "../../components/tables/RemoveButton";
+import { TableHead } from "../../components/tables/TableHead";
+import { deleteById, findAll } from "../../services/AppService";
+import { CreateButton } from "../../components/tables/CreateButton";
+import { BookSeatButton } from "../../components/tables/BookSeatbutton";
 
 export const UsersPage = () => {
   const [users, setUsers] = useState([]);

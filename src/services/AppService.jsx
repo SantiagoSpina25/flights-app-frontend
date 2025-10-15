@@ -13,6 +13,19 @@ export const findAll = async (table) => {
   return null;
 };
 
+export const findById = async (table, id) => {
+  try {
+    const response = await apiClient.get(BASE_URL + "/" + table + "/" + id);
+    return response;
+  } catch (error) {
+    console.log(error);
+    if (error.response) {
+      console.error("Response body:", error.response.data);
+    }
+  }
+  return null;
+};
+
 //POST
 export const createUser = async ({ username, password }) => {
   try {
@@ -115,6 +128,9 @@ export const deleteById = async (table, id) => {
     return response;
   } catch (error) {
     console.log(error);
+    if (error.response) {
+      console.error("Response body:", error.response.data);
+    }
   }
   return null;
 };

@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
-import { RemoveButton } from "../components/tables/RemoveButton";
-import { TableHead } from "../components/tables/TableHead";
-import { deleteById, findAll } from "../services/AppService";
-import { CreateButton } from "../components/tables/CreateButton";
+import { RemoveButton } from "../../components/tables/RemoveButton";
+import { TableHead } from "../../components/tables/TableHead";
+import { deleteById, findAll } from "../../services/AppService";
+import { CreateButton } from "../../components/tables/CreateButton";
+import { useNavigate } from "react-router-dom";
 
 export const FlightsPage = () => {
   const [flights, setFlights] = useState([]);
+
+  const navigate = useNavigate();
 
   //Obtiene los vuelos del backend
   const getFlights = async () => {
@@ -57,7 +60,11 @@ export const FlightsPage = () => {
           <TableHead table={"flights"} />
           <tbody>
             {flights.map((flight) => (
-              <tr key={flight.id} style={{ height: "65px" }}>
+              <tr
+                key={flight.id}
+                style={{ height: "65px",  cursor:"pointer"}}
+                onClick={() => navigate(`/flights/${flight.id}`)}
+              >
                 <td className="text-center fw-semibold">{flight.id}</td>
                 <td>{flight.origin}</td>
                 <td>{flight.destination}</td>
