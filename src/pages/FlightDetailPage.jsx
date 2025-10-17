@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { findById } from "../services/AppService";
+import { CreateRandomSeatsButton } from "../components/CreateRandomSeatsButton";
 
 export const FlightDetailPage = () => {
   const { id } = useParams(); // /flights/{id}
@@ -109,48 +110,8 @@ export const FlightDetailPage = () => {
             </div>
           </div>
 
-          {/* lista de asientos */}
-          {/* {Array.isArray(flight.seats) && (
-            <div className="card shadow-sm">
-              <div className="card-body">
-                <h5 className="card-title">Asientos</h5>
-                <div className="table-responsive">
-                  <table className="table table-sm mb-0">
-                    <thead>
-                      <tr>
-                        <th>Número</th>
-                        <th>Clase</th>
-                        <th>Estado</th>
-                        <th>Pasajero</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {flight.seats.map((s) => (
-                        <tr key={s.id ?? s.number}>
-                          <td>{s.number}</td>
-                          <td>{s.classType}</td>
-                          <td>
-                            <span
-                              className={
-                                s.status === "SOLD" || s.status === "OCCUPIED"
-                                  ? "badge bg-danger"
-                                  : s.status === "RESERVED"
-                                  ? "badge bg-warning text-dark"
-                                  : "badge bg-success"
-                              }
-                            >
-                              {s.status ?? "N/A"}
-                            </span>
-                          </td>
-                          <td>{s.passengerName ?? s.owner ?? "-"}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          )} */}
+          <CreateRandomSeatsButton flightId={flight.id} onGenerated={getFlight}/>
+          
         </div>
 
         {/* Panel derecho con estadísticas */}
@@ -193,6 +154,8 @@ export const FlightDetailPage = () => {
               </div>
             </div>
           </div>
+
+          
 
           {/* Acciones rápidas */}
           {/* <div className="card shadow-sm">

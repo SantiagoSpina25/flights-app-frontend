@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:8080";
+const BASE_URL = "http://localhost:8080/api";
 
 export const apiClient = axios.create({
   baseURL: BASE_URL,
@@ -22,7 +22,7 @@ apiClient.interceptors.response.use(
   res => res,
   err => {
     const status = err?.response?.status;
-    if (status === 401 || status === 403) {
+    if (status === 403) {
       // limpiar sesión
       localStorage.removeItem("token");
       localStorage.removeItem("user");

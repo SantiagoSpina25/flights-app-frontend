@@ -1,11 +1,9 @@
 import apiClient from "./ApiClient";
 
-const BASE_URL = "http://localhost:8080/api";
-
 //GET
 export const findAll = async (table) => {
   try {
-    const response = await apiClient.get(BASE_URL + "/" + table);
+    const response = await apiClient.get("/" + table);
     return response;
   } catch (error) {
     console.log(error);
@@ -15,7 +13,7 @@ export const findAll = async (table) => {
 
 export const findById = async (table, id) => {
   try {
-    const response = await apiClient.get(BASE_URL + "/" + table + "/" + id);
+    const response = await apiClient.get("/" + table + "/" + id);
     return response;
   } catch (error) {
     console.log(error);
@@ -29,7 +27,7 @@ export const findById = async (table, id) => {
 //POST
 export const createUser = async ({ username, password }) => {
   try {
-    const response = await apiClient.post(BASE_URL + "/users/register", {
+    const response = await apiClient.post("/users/register", {
       username,
       password,
     });
@@ -42,7 +40,7 @@ export const createUser = async ({ username, password }) => {
 
 export const createAirline = async ({ name, description }) => {
   try {
-    const response = await apiClient.post(BASE_URL + "/airlines", {
+    const response = await apiClient.post("/airlines", {
       name,
       description,
     });
@@ -64,7 +62,7 @@ export const createFlight = async ({
 }) => {
   console.log(id, origin, destination, date, hour, airlineId);
   try {
-    const response = await apiClient.post(BASE_URL + "/flights", {
+    const response = await apiClient.post("/flights", {
       id,
       origin,
       destination,
@@ -104,7 +102,7 @@ export const createSeat = async ({ number, class_type, status, flightId }) => {
 
 export const bookSeat = async ({userId, seatId}) => {
   try {
-    const response = await apiClient.post(BASE_URL + "/seats/book", {
+    const response = await apiClient.post("/seats/book", {
       userId,
       seatId
     });
@@ -119,12 +117,30 @@ export const bookSeat = async ({userId, seatId}) => {
   return null;
 }
 
+export const createRandomSeats = async ({flightId, numberOfSeats}) => {
+  try {
+    const response = await apiClient.post("/flights/createSeats", {
+      flightId,
+      numberOfSeats,
+    });
+
+    return response;
+  } catch (error) {
+    console.log(error);
+    if (error.response) {
+      console.error("Response body:", error.response.data);
+    }
+  }
+  return null;
+}
+
+
 //TODO CONTROLAR CONSTRAINTS
 
 //DELETE
 export const deleteById = async (table, id) => {
   try {
-    const response = await apiClient.delete(BASE_URL + "/" + table + "/" + id);
+    const response = await apiClient.delete("/" + table + "/" + id);
     return response;
   } catch (error) {
     console.log(error);
