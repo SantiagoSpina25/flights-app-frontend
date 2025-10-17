@@ -3,12 +3,16 @@ import { useNavigate } from "react-router-dom";
 import { createFlight } from "../../services/AppService";
 
 export const NewFlightsPage = () => {
+
+  const fechaActual = new Date().toISOString().slice(0,10); //Fecha predeterminada
+  const horaActual = new Date().toTimeString().slice(0,8); //Hora predeterminada
+
   const [form, setForm] = useState({
     id: "",
     origin: "",
     destination: "",
-    date: "2025-10-20",
-    hour: "13:20:22",
+    date: fechaActual,
+    hour: horaActual,
     airlineId: "",
   });
   const [error, setError] = useState(null);
