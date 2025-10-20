@@ -49,7 +49,7 @@ export const NewAirlinesPage = () => {
 
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
-            <label htmlFor="name" className="form-label">
+            <label htmlFor="name" className="form-label required">
               Nombre
             </label>
             <input

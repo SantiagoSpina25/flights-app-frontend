@@ -55,7 +55,7 @@ export const NewSeatsPage = () => {
 
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
-            <label htmlFor="number" className="form-label">
+            <label htmlFor="number" className="form-label required">
               Numero
             </label>
             <input
@@ -87,21 +87,6 @@ export const NewSeatsPage = () => {
             </select>
           </div>
 
-          {/* <div className="mb-3">
-            <label htmlFor="status" className="form-label">
-              Estado
-            </label>
-            <input
-              id="status"
-              name="status"
-              type="text"
-              className="form-control"
-              value={form.status}
-              onChange={handleChange}
-              placeholder="Estado del asiento"
-            />
-          </div> */}
-
           <div className="mb-3">
             <label for="status" class="form-label">
               Estado
@@ -119,7 +104,7 @@ export const NewSeatsPage = () => {
           </div>
 
           <div className="mb-3">
-            <label htmlFor="flightId" className="form-label">
+            <label htmlFor="flightId" className="form-label required">
               Id del vuelo
             </label>
             <input

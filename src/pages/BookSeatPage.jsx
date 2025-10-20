@@ -22,7 +22,7 @@ export const BookSeatPage = () => {
 
       <form onSubmit={handleSubmit} className="col-md-6 mx-auto">
         <div className="mb-3">
-          <label className="form-label">Id del usuario</label>
+          <label className="form-label required">Id del usuario</label>
           <input
             type="text"
             name="userId"
@@ -34,7 +34,7 @@ export const BookSeatPage = () => {
         </div>
 
         <div className="mb-3">
-          <label className="form-label">Id del asiento</label>
+          <label className="form-label required">Id del asiento</label>
           <input
             type="text"
             name="seatId"

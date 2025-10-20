@@ -22,7 +22,7 @@ apiClient.interceptors.response.use(
   res => res,
   err => {
     const status = err?.response?.status;
-    if (status === 403) {
+    if (status === 403 || status === 401) {
       // limpiar sesión
       localStorage.removeItem("token");
       localStorage.removeItem("user");

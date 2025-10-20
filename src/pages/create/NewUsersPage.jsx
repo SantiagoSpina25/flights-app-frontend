@@ -22,7 +22,7 @@ export const NewUsersPage = () => {
 
       <form onSubmit={handleSubmit} className="col-md-6 mx-auto">
         <div className="mb-3">
-          <label className="form-label">Nombre de usuario</label>
+          <label className="form-label required">Nombre de usuario</label>
           <input
             type="text"
             name="username"
@@ -34,7 +34,7 @@ export const NewUsersPage = () => {
         </div>
 
         <div className="mb-3">
-          <label className="form-label">Contraseña</label>
+          <label className="form-label required">Contraseña</label>
           <input
             type="password"
             name="password"

@@ -63,7 +63,7 @@ export const NewFlightsPage = () => {
 
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
-            <label htmlFor="id" className="form-label">
+            <label htmlFor="id" className="form-label required">
               ID
             </label>
             <input
@@ -79,7 +79,7 @@ export const NewFlightsPage = () => {
           </div>
 
           <div className="mb-3">
-            <label htmlFor="origin" className="form-label">
+            <label htmlFor="origin" className="form-label required">
               Origen
             </label>
             <input
@@ -95,7 +95,7 @@ export const NewFlightsPage = () => {
           </div>
 
           <div className="mb-3">
-            <label htmlFor="destination" className="form-label">
+            <label htmlFor="destination" className="form-label required">
               Destino
             </label>
             <input
@@ -141,7 +141,7 @@ export const NewFlightsPage = () => {
           </div>
 
           <div className="mb-3">
-            <label htmlFor="airlineId" className="form-label">
+            <label htmlFor="airlineId" className="form-label required">
               ID Aerolinea
             </label>
             <input
