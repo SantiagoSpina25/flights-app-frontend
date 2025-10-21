@@ -15,6 +15,7 @@ import { PrivateRoute } from "./routes/PrivateRoute";
 import { BookSeatPage } from "./pages/BookSeatPage";
 import { HomePage } from "./pages/HomePage";
 import { FlightDetailPage } from "./pages/FlightDetailPage";
+import { TicketsPage } from "./pages/TicketsPage";
 
 export const App = () => {
   return (
@@ -117,6 +118,14 @@ export const App = () => {
               element={
                 <PrivateRoute>
                   <FlightDetailPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/users/:userId"
+              element={
+                <PrivateRoute>
+                  <TicketsPage />
                 </PrivateRoute>
               }
             />

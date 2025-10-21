@@ -1,6 +1,11 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 export const NavBar = () => {
+
+  const { user } = useContext(AuthContext);
+
   return (
     <header>
       <nav
@@ -8,12 +13,10 @@ export const NavBar = () => {
         style={{ backgroundColor: "#6A1B2A" }}
       >
         <div className="container-fluid px-4 d-flex justify-content-between align-items-center">
-          {/* Izquierda: título */}
           <Link className="navbar-brand fw-bold text-white" to="/">
             Flights-App
           </Link>
 
-          {/* Botón responsive */}
           <button
             className="navbar-toggler"
             type="button"
@@ -26,12 +29,17 @@ export const NavBar = () => {
             <span className="navbar-toggler-icon"></span>
           </button>
 
-          {/* Menú principal (centrado) */}
+          {/* Menú principal */}
           <div
             className="collapse navbar-collapse justify-content-center"
             id="navbarNav"
           >
             <ul className="navbar-nav gap-3">
+              <li className="nav-item">
+                <Link className="nav-link" to={`/users/${user.id}`}>
+                  Mis tickets
+                </Link>
+              </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/users">
                   Usuarios
@@ -55,7 +63,6 @@ export const NavBar = () => {
             </ul>
           </div>
 
-          {/* Derecha: login */}
           <div className="d-none d-lg-block">
             <Link className="nav-link text-white fw-semibold" to="/login">
               Login
