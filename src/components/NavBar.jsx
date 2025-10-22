@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 export const NavBar = () => {
-
   const { user } = useContext(AuthContext);
+  const { isAuthenticated } = useContext(AuthContext);
 
   return (
     <header>
@@ -30,38 +30,42 @@ export const NavBar = () => {
           </button>
 
           {/* Menú principal */}
-          <div
-            className="collapse navbar-collapse justify-content-center"
-            id="navbarNav"
-          >
-            <ul className="navbar-nav gap-3">
-              <li className="nav-item">
-                <Link className="nav-link" to={`/users/${user.id}`}>
-                  Mis tickets
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/users">
-                  Usuarios
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/airlines">
-                  Aerolíneas
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/flights">
-                  Vuelos
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/seats">
-                  Asientos
-                </Link>
-              </li>
-            </ul>
-          </div>
+          {isAuthenticated ? (
+            <div
+              className="collapse navbar-collapse justify-content-center"
+              id="navbarNav"
+            >
+              <ul className="navbar-nav gap-3">
+                <li className="nav-item">
+                  <Link className="nav-link" to={`/users/${user.id}`}>
+                    Mis tickets
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/users">
+                    Usuarios
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/airlines">
+                    Aerolíneas
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/flights">
+                    Vuelos
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/seats">
+                    Asientos
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          ) : (
+            <></>
+          )}
 
           <div className="d-none d-lg-block">
             <Link className="nav-link text-white fw-semibold" to="/login">
