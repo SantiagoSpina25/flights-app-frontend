@@ -1,11 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createFlight } from "../../services/AppService";
+import { createFlight, findAll } from "../../services/AppService";
 
 export const NewFlightsPage = () => {
-
-  const fechaActual = new Date().toISOString().slice(0,10); //Fecha predeterminada
-  const horaActual = new Date().toTimeString().slice(0,8); //Hora predeterminada
+  const fechaActual = new Date().toISOString().slice(0, 10); //Fecha predeterminada
+  const horaActual = new Date().toTimeString().slice(0, 8); //Hora predeterminada
 
   const [form, setForm] = useState({
     id: "",
@@ -16,6 +15,7 @@ export const NewFlightsPage = () => {
     airlineId: "",
   });
   const [error, setError] = useState(null);
+  const [airlinesIds, setAirlinesIds] = useState([]);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -49,6 +49,23 @@ export const NewFlightsPage = () => {
       setError("Ocurrió un error al conectar con el servidor.");
     }
   };
+
+  const getAirlinesIds = async () => {
+      try {
+        const result = await findAll("airlines");
+        const airlinesIdsFound = result.data.map((a) => {
+          return a.id;
+        });
+  
+        setAirlinesIds(airlinesIdsFound);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+  useEffect(()=>{
+    getAirlinesIds();
+  },[])
 
   return (
     <div className="container mt-5">
@@ -142,18 +159,22 @@ export const NewFlightsPage = () => {
 
           <div className="mb-3">
             <label htmlFor="airlineId" className="form-label required">
-              ID Aerolinea
+              Id de la aerolinea
             </label>
-            <input
+            <select
               id="airlineId"
               name="airlineId"
-              type="text"
-              className="form-control"
-              value={form.airlineId}
+              className="form-select"
               onChange={handleChange}
-              placeholder="ID de la aerolinea"
-              required
-            />
+              value={form.airlineId}
+            >
+              <option value="">Selecciona el id de la aerolinea</option>
+              {airlinesIds.map((id) => (
+                <option key={id} value={id}>
+                  {id}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="d-flex justify-content-start">

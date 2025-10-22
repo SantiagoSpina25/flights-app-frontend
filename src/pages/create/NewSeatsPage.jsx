@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createSeat } from "../../services/AppService";
+import { createSeat, findAll } from "../../services/AppService";
 
 export const NewSeatsPage = () => {
   const [form, setForm] = useState({
@@ -10,6 +10,7 @@ export const NewSeatsPage = () => {
     flightId: "",
   });
   const [error, setError] = useState(null);
+  const [flightsIds, setFlightsIds] = useState([]);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -42,6 +43,23 @@ export const NewSeatsPage = () => {
     }
   };
 
+  const getFlightsIds = async () => {
+    try {
+      const result = await findAll("flights");
+      const flightsIdsFound = result.data.map((f) => {
+        return f.id;
+      });
+
+      setFlightsIds(flightsIdsFound);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getFlightsIds();
+  }, []);
+
   return (
     <div className="container mt-5">
       <h2 className="mb-4">Crear nuevo asiento</h2>
@@ -71,13 +89,13 @@ export const NewSeatsPage = () => {
           </div>
 
           <div className="mb-3">
-            <label for="class_type" class="form-label">
+            <label htmlFor="class_type" className="form-label">
               Clase
             </label>
             <select
               id="class_type"
               name="class_type"
-              class="form-select"
+              className="form-select"
               onChange={handleChange}
               value={form.class_type}
             >
@@ -88,13 +106,13 @@ export const NewSeatsPage = () => {
           </div>
 
           <div className="mb-3">
-            <label for="status" class="form-label">
+            <label htmlFor="status" className="form-label">
               Estado
             </label>
             <select
               id="status"
               name="status"
-              class="form-select"
+              className="form-select"
               onChange={handleChange}
               value={form.status}
             >
@@ -107,14 +125,20 @@ export const NewSeatsPage = () => {
             <label htmlFor="flightId" className="form-label required">
               Id del vuelo
             </label>
-            <input
+            <select
               id="flightId"
               name="flightId"
-              type="text"
-              className="form-control"
-              value={form.flightId}
+              className="form-select"
               onChange={handleChange}
-            />
+              value={form.flightId}
+            >
+              <option value="">Selecciona el id del vuelo</option>
+              {flightsIds.map((id) => (
+                <option key={id} value={id}>
+                  {id}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="d-flex justify-content-start">

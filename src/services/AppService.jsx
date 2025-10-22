@@ -83,7 +83,7 @@ export const createFlight = async ({
 
 export const createSeat = async ({ number, class_type, status, flightId }) => {
   try {
-    const response = await apiClient.post(BASE_URL + "/seats", {
+    const response = await apiClient.post("/seats", {
       number,
       class_type,
       status,
