@@ -1,10 +1,15 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 export const NavBar = () => {
-  const { user } = useContext(AuthContext);
-  const { isAuthenticated } = useContext(AuthContext);
+  const { user, isAuthenticated, logout } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
 
   return (
     <header>
@@ -68,9 +73,18 @@ export const NavBar = () => {
           )}
 
           <div className="d-none d-lg-block">
-            <Link className="nav-link text-white fw-semibold" to="/login">
-              Login
-            </Link>
+            {isAuthenticated ? (
+              <button
+                onClick={handleLogout}
+                className="btn btn-custom-logout fw-semibold"
+              >
+                Logout
+              </button>
+            ) : (
+              <Link className="btn btn-custom-logout fw-semibold" to="/login">
+                Login
+              </Link>
+            )}
           </div>
         </div>
       </nav>

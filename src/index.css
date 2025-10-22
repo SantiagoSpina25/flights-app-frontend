@@ -2,3 +2,15 @@ label.required::after {
   content: " *";
   color: red;
 }
+.btn-custom-logout {
+  background-color: white;
+  color: #6A1B2A;
+  border: 2px solid white;
+  transition: all 0.3s ease;
+}
+
+.btn-custom-logout:hover {
+  background-color: #6A1B2A;
+  color: white;
+  border: 2px solid white;
+}
