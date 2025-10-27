@@ -100,11 +100,11 @@ export const createSeat = async ({ number, class_type, status, flightId }) => {
   return null;
 };
 
-export const bookSeat = async ({userId, seatId}) => {
+export const bookSeat = async ({ userId, seatId }) => {
   try {
     const response = await apiClient.post("/seats/book", {
       userId,
-      seatId
+      seatId,
     });
 
     return response;
@@ -115,9 +115,9 @@ export const bookSeat = async ({userId, seatId}) => {
     }
   }
   return null;
-}
+};
 
-export const createRandomSeats = async ({flightId, numberOfSeats}) => {
+export const createRandomSeats = async ({ flightId, numberOfSeats }) => {
   try {
     const response = await apiClient.post("/flights/createSeats", {
       flightId,
@@ -132,8 +132,7 @@ export const createRandomSeats = async ({flightId, numberOfSeats}) => {
     }
   }
   return null;
-}
-
+};
 
 //TODO CONTROLAR CONSTRAINTS
 

@@ -1,5 +1,4 @@
 export const TicketCard = ({ ticket, onClick }) => {
-  // ticket: { id?, flightId, airline, date, hour, origin, destination, classType, seatNumber }
   return (
     <div
       className="card h-100 shadow-sm"
@@ -16,8 +15,8 @@ export const TicketCard = ({ ticket, onClick }) => {
             <small className="text-muted">{ticket.airline}</small>
           </div>
           <div className="text-end">
-            <div className="fw-bold">{ticket.seatNumber ?? "—"}</div>
-            <small className="text-muted">{ticket.classType ?? ""}</small>
+            <div className="fw-bold">{ticket.seatNumber}</div>
+            <small className="text-muted">{ticket.classType}</small>
           </div>
         </div>
 
@@ -25,13 +24,12 @@ export const TicketCard = ({ ticket, onClick }) => {
           <strong>{ticket.origin}</strong> → <strong>{ticket.destination}</strong>
         </p>
 
-        {/* <div className="mt-auto d-flex justify-content-between align-items-center">
+        <div className="mt-auto d-flex justify-content-between align-items-center">
           <div>
             <small className="text-muted d-block">{ticket.date}</small>
             <small className="text-muted">{ticket.hour}</small>
           </div>
-          <span className="badge bg-light text-dark">Ver detalle</span>
-        </div> */}
+        </div>
       </div>
     </div>
   );

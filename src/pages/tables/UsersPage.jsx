@@ -62,6 +62,7 @@ export const UsersPage = () => {
                 <td className="text-center fw-semibold">{user.id}</td>
                 <td>{user.username}</td>
                 <td>{user.password}</td>
+                <td>{String(user.admin)}</td>
                 <td>
                   {user.tickets.length > 0 ? (
                     user.tickets
