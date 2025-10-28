@@ -1,4 +1,4 @@
-export const TableHead = ({ table }) => {
+export const TableHead = ({ table, admin }) => {
   const headersByTable = {
     users: ["ID", "Usuario", "Contraseña (Encriptada)", "admin", "Tickets", "Eliminar"],
     airlines: ["ID", "Nombre", "Descripción", "Vuelos", "Eliminar"],
@@ -6,7 +6,11 @@ export const TableHead = ({ table }) => {
     seats: ["ID", "Número", "Clase", "Estado", "Vuelo", "Eliminar"]
   };
 
-  const headers = headersByTable[table] || [];
+  let headers = headersByTable[table] || [];
+
+  if(!admin){
+    headers = headers.filter(h => h !== "Eliminar");
+  }
 
   return (
     <thead

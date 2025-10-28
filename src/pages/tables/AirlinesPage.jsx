@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { RemoveButton } from "../../components/tables/RemoveButton";
 import { TableHead } from "../../components/tables/TableHead";
 import { deleteById, findAll } from "../../services/AppService";
 import { CreateButton } from "../../components/tables/CreateButton";
+import { AuthContext } from "../../context/AuthContext";
 
 export const AirlinesPage = () => {
   const [airlines, setAirlines] = useState([]);
+  const { user } = useContext(AuthContext);
 
   //Obtiene las aerolineas del backend
   const getAirlines = async () => {
@@ -35,7 +37,7 @@ export const AirlinesPage = () => {
       <h2 className="text-center mb-5 display-6 fw-bold text-dark">
         Tabla de aerolineas
       </h2>
-      <CreateButton table={"airlines"} />
+      {user.admin ? <CreateButton table={"airlines"} /> : <></>}
       <div
         className="table-responsive"
         style={{
@@ -53,7 +55,7 @@ export const AirlinesPage = () => {
             minWidth: "1200px",
           }}
         >
-          <TableHead table={"airlines"} />
+          <TableHead table={"airlines"} admin={user.admin} />
           <tbody>
             {airlines.map((airline) => (
               <tr key={airline.id} style={{ height: "65px" }}>
@@ -67,12 +69,16 @@ export const AirlinesPage = () => {
                     <span className="text-muted">Sin vuelos</span>
                   )}
                 </td>
-                <td className="text-center">
-                  <RemoveButton
-                    handlerRemove={handlerRemoveAirline}
-                    id={airline.id}
-                  />
-                </td>
+                {user.admin ? (
+                  <td className="text-center">
+                    <RemoveButton
+                      handlerRemove={handlerRemoveAirline}
+                      id={airline.id}
+                    />
+                  </td>
+                ) : (
+                  <></>
+                )}
               </tr>
             ))}
           </tbody>

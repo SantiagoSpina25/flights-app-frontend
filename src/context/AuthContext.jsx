@@ -26,12 +26,13 @@ export const AuthProvider = ({ children }) => {
     else localStorage.removeItem("user");
   }, [user]);
 
-  const login = ({ token: t, username, id }) => {
+  const login = ({ token: t, username, id, admin }) => {
     const decoded = jwtDecode(t);
     id = decoded.id;
+    admin = decoded.authorities.includes("ROLE_ADMIN")
 
     setToken(t);
-    setUser({ username, id });
+    setUser({ username, id, admin });
   };
 
   const logout = () => {

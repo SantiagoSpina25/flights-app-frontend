@@ -1,13 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { RemoveButton } from "../../components/tables/RemoveButton";
 import { TableHead } from "../../components/tables/TableHead";
 import { deleteById, findAll } from "../../services/AppService";
 import { CreateButton } from "../../components/tables/CreateButton";
 import { BookSeatButton } from "../../components/tables/BookSeatbutton";
+import { AuthContext } from "../../context/AuthContext";
 
 export const UsersPage = () => {
   const [users, setUsers] = useState([]);
-
+  const { user } = useContext(AuthContext);
   //Obtiene los usuarios del backend
   const getUsers = async () => {
     const result = await findAll("users");
@@ -28,7 +29,6 @@ export const UsersPage = () => {
     }
     //Filtra todos los usuarios que no tengan el mismo id que el que fue eliminado
     setUsers(users.filter((user) => user.id != id));
-
   };
 
   return (
@@ -36,8 +36,8 @@ export const UsersPage = () => {
       <h2 className="text-center mb-5 display-6 fw-bold text-dark">
         Tabla de usuarios
       </h2>
-      <CreateButton table={"users"}/>
-      <BookSeatButton/>
+      <CreateButton table={"users"} />
+      <BookSeatButton />
       <div
         className="table-responsive"
         style={{
@@ -55,17 +55,17 @@ export const UsersPage = () => {
             minWidth: "1200px",
           }}
         >
-          <TableHead table={"users"} />
+          <TableHead table={"users"} admin={user.admin} />
           <tbody>
-            {users.map((user) => (
-              <tr key={user.id} style={{ height: "65px" }}>
-                <td className="text-center fw-semibold">{user.id}</td>
-                <td>{user.username}</td>
-                <td>{user.password}</td>
-                <td>{String(user.admin)}</td>
+            {users.map((us) => (
+              <tr key={us.id} style={{ height: "65px" }}>
+                <td className="text-center fw-semibold">{us.id}</td>
+                <td>{us.username}</td>
+                <td>{us.password}</td>
+                <td>{String(us.admin)}</td>
                 <td>
-                  {user.tickets.length > 0 ? (
-                    user.tickets
+                  {us.tickets.length > 0 ? (
+                    us.tickets
                       .map(
                         (ticket) =>
                           ticket.flightId + " (" + ticket.seatNumber + ") "
@@ -75,12 +75,16 @@ export const UsersPage = () => {
                     <span className="text-muted">Sin tickets</span>
                   )}
                 </td>
-                <td className="text-center">
-                  <RemoveButton
-                    handlerRemove={handlerRemoveUser}
-                    id={user.id}
-                  />
-                </td>
+                {user.admin ? (
+                  <td className="text-center">
+                    <RemoveButton
+                      handlerRemove={handlerRemoveUser}
+                      id={us.id}
+                    />
+                  </td>
+                ) : (
+                  <></>
+                )}
               </tr>
             ))}
           </tbody>

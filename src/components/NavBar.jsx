@@ -46,11 +46,15 @@ export const NavBar = () => {
                     Mis tickets
                   </Link>
                 </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/users">
-                    Usuarios
-                  </Link>
-                </li>
+                {user.admin ? (
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/users">
+                      Usuarios
+                    </Link>
+                  </li>
+                ) : (
+                  <></>
+                )}
                 <li className="nav-item">
                   <Link className="nav-link" to="/airlines">
                     Aerolíneas

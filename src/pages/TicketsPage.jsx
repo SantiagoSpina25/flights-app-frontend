@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { TicketCard } from "../components/TicketCard";
 import { findById } from "../services/AppService";
+import { BookSeatButton } from "../components/tables/BookSeatbutton";
 
 export const TicketsPage = () => {
   const { userId } = useParams();
@@ -57,7 +58,10 @@ export const TicketsPage = () => {
 
   return (
     <div className="container mt-5">
-      <h2 className="mb-4">Mis tickets</h2>
+      <div className="d-flex justify-content-between align-items-center mb-4">
+        <h2 className="mb-0">Mis tickets</h2>
+        <BookSeatButton id={userId}/>
+      </div>
 
       {tickets.length === 0 ? (
         <div className="alert alert-info">No tienes tickets aún.</div>
@@ -65,20 +69,11 @@ export const TicketsPage = () => {
         <div className="row g-3">
           {tickets.map((t, index) => (
             <div key={index} className="col-12 col-sm-6 col-md-4 col-lg-3">
-              <TicketCard
-                ticket={t}
-                // onClick={() => {
-                //   // ruta de detalle: /tickets/:id o /flights/:flightId/tickets/:id
-                //   // aqui vamos a /tickets/:id si existe id, si no usamos flightId
-                //   const ticketId = t.id ?? `${t.flightId}-${t.seatNumber}`;
-                //   navigate(`/tickets/${ticketId}`);
-                // }}
-              />
+              <TicketCard ticket={t} />
             </div>
           ))}
         </div>
       )}
-
     </div>
   );
 };

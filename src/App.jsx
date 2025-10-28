@@ -16,6 +16,8 @@ import { BookSeatPage } from "./pages/BookSeatPage";
 import { HomePage } from "./pages/HomePage";
 import { FlightDetailPage } from "./pages/FlightDetailPage";
 import { TicketsPage } from "./pages/TicketsPage";
+import { ForbiddenPage } from "./pages/ForbiddenPage";
+import { BookSeatUserPage } from "./pages/BookSeatUserPage";
 
 export const App = () => {
   return (
@@ -30,6 +32,7 @@ export const App = () => {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/home" element={<HomePage />} />
+            <Route path="/forbidden" element={<ForbiddenPage />} />
 
             {/* rutas protegidas*/}
             <Route
@@ -110,6 +113,14 @@ export const App = () => {
               element={
                 <PrivateRoute>
                   <BookSeatPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/users/bookSeat/:userIdParam"
+              element={
+                <PrivateRoute>
+                  <BookSeatUserPage />
                 </PrivateRoute>
               }
             />

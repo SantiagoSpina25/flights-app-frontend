@@ -1,13 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { RemoveButton } from "../../components/tables/RemoveButton";
 import { TableHead } from "../../components/tables/TableHead";
 import { deleteById, findAll } from "../../services/AppService";
 import { CreateButton } from "../../components/tables/CreateButton";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 
 export const FlightsPage = () => {
   const [flights, setFlights] = useState([]);
-
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
   //Obtiene los vuelos del backend
@@ -39,7 +40,7 @@ export const FlightsPage = () => {
         Tabla de vuelos
       </h2>
 
-      <CreateButton table={"flights"} />
+      {user.admin ? <CreateButton table={"flights"} /> : <></>}
       <div
         className="table-responsive"
         style={{
@@ -57,12 +58,12 @@ export const FlightsPage = () => {
             minWidth: "1200px",
           }}
         >
-          <TableHead table={"flights"} />
+          <TableHead table={"flights"} admin={user.admin} />
           <tbody>
             {flights.map((flight) => (
               <tr
                 key={flight.id}
-                style={{ height: "65px",  cursor:"pointer"}}
+                style={{ height: "65px", cursor: "pointer" }}
                 onClick={() => navigate(`/flights/${flight.id}`)}
               >
                 <td className="text-center fw-semibold">{flight.id}</td>
@@ -71,12 +72,16 @@ export const FlightsPage = () => {
                 <td>{flight.date}</td>
                 <td>{flight.hour}</td>
                 <td>{flight.airlineName}</td>
-                <td className="text-center">
-                  <RemoveButton
-                    handlerRemove={handlerRemoveFlight}
-                    id={flight.id}
-                  />
-                </td>
+                {user.admin ? (
+                  <td className="text-center">
+                    <RemoveButton
+                      handlerRemove={handlerRemoveFlight}
+                      id={flight.id}
+                    />
+                  </td>
+                ) : (
+                  <></>
+                )}
               </tr>
             ))}
           </tbody>

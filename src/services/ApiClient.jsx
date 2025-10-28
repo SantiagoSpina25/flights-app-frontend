@@ -22,15 +22,23 @@ apiClient.interceptors.response.use(
   res => res,
   err => {
     const status = err?.response?.status;
-    if (status === 403 || status === 401) {
-      // limpiar sesión
+    console.log(err)
+    if (status === 401) {
+      // Token inválido/expirado → cerrar sesión y redirigir
       localStorage.removeItem("token");
       localStorage.removeItem("user");
-      // redirigir al login (sin hooks)
       window.location.href = "/login";
     }
+
+    if (status === 403) {
+      // Usuario autenticado pero sin permisos → NO cerrar sesión
+      console.warn("No tienes permisos para realizar esta acción.");
+      window.location.href = "/forbidden"; // O mostrar mensaje
+    }
+
     return Promise.reject(err);
   }
 );
+
 
 export default apiClient;
