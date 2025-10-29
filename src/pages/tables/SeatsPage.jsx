@@ -62,6 +62,7 @@ export const SeatsPage = () => {
                 <td>{seat.number}</td>
                 <td>{seat.status}</td>
                 <td>{seat.classType}</td>
+                <td>{`$${seat.price}`}</td>
                 <td>{seat.flightId}</td>
                 {user.admin ? (
                   <td className="text-center">
