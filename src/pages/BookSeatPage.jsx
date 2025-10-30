@@ -66,6 +66,7 @@ export const BookSeatPage = () => {
             className="form-select"
             onChange={handleChange}
             value={form.userId}
+            required
           >
             <option value="">Selecciona el id del usuario</option>
             {usersIds.map((id) => (
@@ -86,6 +87,7 @@ export const BookSeatPage = () => {
             className="form-select"
             onChange={handleChange}
             value={form.seatId}
+            required
           >
             <option value="">Selecciona el id del asiento</option>
             {seatsIds.map((id) => (

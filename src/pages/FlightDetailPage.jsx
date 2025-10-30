@@ -89,10 +89,10 @@ export const FlightDetailPage = () => {
             <div className="card-body">
               <h5 className="card-title">Ruta</h5>
               <p className="mb-1">
-                <strong>Origen:</strong> {flight.origin}
+                <strong>Origen:</strong> {flight.originCity}
               </p>
               <p className="mb-1">
-                <strong>Destino:</strong> {flight.destination}
+                <strong>Destino:</strong> {flight.destinationCity}
               </p>
 
               <hr />

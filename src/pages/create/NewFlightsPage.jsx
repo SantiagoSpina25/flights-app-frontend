@@ -16,6 +16,7 @@ export const NewFlightsPage = () => {
   });
   const [error, setError] = useState(null);
   const [airlinesIds, setAirlinesIds] = useState([]);
+  const [airports, setAirports] = useState([]);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -26,10 +27,16 @@ export const NewFlightsPage = () => {
     e.preventDefault();
     setError(null);
 
+    if (!form.id.trim()) return setError("El id del vuelo es requerido");
+    if (!form.origin) return setError("Selecciona un aeropuerto de origen");
+    if (!form.destination)
+      return setError("Selecciona un aeropuerto de destino");
+    if (!form.airlineId) return setError("Selecciona una aerolínea");
+
     const flight = {
       id: form.id.trim(),
-      origin: form.origin.trim(),
-      destination: form.destination.trim(),
+      originAirportId: Number(form.origin),
+      destinationAirportId: Number(form.destination),
       date: form.date,
       hour: form.hour,
       airlineId: Number(form.airlineId),
@@ -50,22 +57,32 @@ export const NewFlightsPage = () => {
     }
   };
 
-  const getAirlinesIds = async () => {
-      try {
-        const result = await findAll("airlines");
-        const airlinesIdsFound = result.data.map((a) => {
-          return a.id;
-        });
-  
-        setAirlinesIds(airlinesIdsFound);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  const getAirports = async () => {
+    try {
+      const result = await findAll("airports");
+      setAirports(result.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-  useEffect(()=>{
+  const getAirlinesIds = async () => {
+    try {
+      const result = await findAll("airlines");
+      const airlinesIdsFound = result.data.map((a) => {
+        return a.id;
+      });
+
+      setAirlinesIds(airlinesIdsFound);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
     getAirlinesIds();
-  },[])
+    getAirports();
+  }, []);
 
   return (
     <div className="container mt-5">
@@ -97,34 +114,44 @@ export const NewFlightsPage = () => {
 
           <div className="mb-3">
             <label htmlFor="origin" className="form-label required">
-              Origen
+              Origen del vuelo
             </label>
-            <input
+            <select
               id="origin"
               name="origin"
-              type="text"
-              className="form-control"
-              value={form.origin}
+              className="form-select"
               onChange={handleChange}
-              placeholder="Origen del vuelo"
+              value={form.origin}
               required
-            />
+            >
+              <option value="">Selecciona el origen del vuelo</option>
+              {airports.map((a) => (
+                <option key={a.id} value={a.id}>
+                  {`${a.countryName} (${a.iataCode}) — ${a.city}`}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="mb-3">
             <label htmlFor="destination" className="form-label required">
               Destino
             </label>
-            <input
+            <select
               id="destination"
               name="destination"
-              type="text"
-              className="form-control"
-              value={form.destination}
+              className="form-select"
               onChange={handleChange}
-              placeholder="Destino del vuelo"
+              value={form.destination}
               required
-            />
+            >
+              <option value="">Selecciona el destino del vuelo</option>
+              {airports.map((a) => (
+                <option key={a.id} value={a.id}>
+                  {`${a.countryName} (${a.iataCode}) — ${a.city}`}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="mb-3">

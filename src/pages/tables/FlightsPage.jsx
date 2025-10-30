@@ -67,8 +67,8 @@ export const FlightsPage = () => {
                 onClick={() => navigate(`/flights/${flight.id}`)}
               >
                 <td className="text-center fw-semibold">{flight.id}</td>
-                <td>{flight.origin}</td>
-                <td>{flight.destination}</td>
+                <td>{flight.originCity}</td>
+                <td>{flight.destinationCity}</td>
                 <td>{flight.date}</td>
                 <td>{flight.hour}</td>
                 <td>{flight.airlineName}</td>

@@ -54,18 +54,17 @@ export const createAirline = async ({ name, description }) => {
 
 export const createFlight = async ({
   id,
-  origin,
-  destination,
+  originAirportId,
+  destinationAirportId,
   date,
   hour,
   airlineId,
 }) => {
-  console.log(id, origin, destination, date, hour, airlineId);
   try {
     const response = await apiClient.post("/flights", {
       id,
-      origin,
-      destination,
+      originAirportId,
+      destinationAirportId,
       date,
       hour,
       airlineId,
