@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { findById } from "../services/AppService";
 import { CreateRandomSeatsButton } from "../components/CreateRandomSeatsButton";
+import { AuthContext } from "../context/AuthContext";
 
 export const FlightDetailPage = () => {
   const { id } = useParams(); // /flights/{id}
   const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
 
   const [flight, setFlight] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -67,9 +69,7 @@ export const FlightDetailPage = () => {
       <div className="d-flex justify-content-between align-items-start mb-4">
         <div>
           <h2 className="fw-bold mb-1">Vuelo {flight.id}</h2>
-          <div className="text-muted">
-            {flight.airlineName}
-          </div>
+          <div className="text-muted">{flight.airlineName}</div>
         </div>
 
         <div className="d-flex gap-2">
@@ -99,19 +99,22 @@ export const FlightDetailPage = () => {
 
               <div className="d-flex flex-wrap gap-3">
                 <div>
-                  <strong>Fecha:</strong>{" "}
-                  <span>{flight.date}</span>
+                  <strong>Fecha:</strong> <span>{flight.date}</span>
                 </div>
                 <div>
                   <strong>Hora:</strong> <span>{flight.hour}</span>
                 </div>
               </div>
-
             </div>
           </div>
-
-          <CreateRandomSeatsButton flightId={flight.id} onGenerated={getFlight}/>
-          
+          {user.admin ? (
+            <CreateRandomSeatsButton
+              flightId={flight.id}
+              onGenerated={getFlight}
+            />
+          ) : (
+            <></>
+          )}
         </div>
 
         {/* Panel derecho con estadísticas */}
@@ -142,11 +145,19 @@ export const FlightDetailPage = () => {
                   role="progressbar"
                   style={{
                     width: `${
-                      flight.seats.total > 0 ? Math.round((flight.seats.sold / flight.seats.total) * 100) : 0
+                      flight.seats.total > 0
+                        ? Math.round(
+                            (flight.seats.sold / flight.seats.total) * 100
+                          )
+                        : 0
                     }%`,
                   }}
                   aria-valuenow={
-                    flight.seats.total > 0 ? Math.round((flight.seats.sold / flight.seats.total) * 100) : 0
+                    flight.seats.total > 0
+                      ? Math.round(
+                          (flight.seats.sold / flight.seats.total) * 100
+                        )
+                      : 0
                   }
                   aria-valuemin="0"
                   aria-valuemax="100"
@@ -154,8 +165,6 @@ export const FlightDetailPage = () => {
               </div>
             </div>
           </div>
-
-          
 
           {/* Acciones rápidas */}
           {/* <div className="card shadow-sm">
