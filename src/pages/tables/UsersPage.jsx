@@ -62,7 +62,7 @@ export const UsersPage = () => {
                 <td className="text-center fw-semibold">{us.id}</td>
                 <td>{us.username}</td>
                 <td>{us.password}</td>
-                <td>{String(us.admin)}</td>
+                <td>{us.admin ? "✅" : "❌"}</td>
                 <td>
                   {us.tickets.length > 0 ? (
                     us.tickets
