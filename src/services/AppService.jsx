@@ -133,6 +133,23 @@ export const createRandomSeats = async ({ flightId, numberOfSeats }) => {
   return null;
 };
 
+export const addBalance = async ({ id, balance }) => {
+  try {
+    const response = await apiClient.post("/users/addBalance", {
+      id,
+      balance,
+    });
+
+    return response;
+  } catch (error) {
+    console.log(error);
+    if (error.response) {
+      console.error("Response body:", error.response.data);
+    }
+  }
+  return null;
+};
+
 //TODO CONTROLAR CONSTRAINTS
 
 //DELETE
