@@ -101,19 +101,16 @@ export const createSeat = async ({ number, class_type, status, flightId }) => {
 
 export const bookSeat = async ({ userId, seatId }) => {
   try {
-    const response = await apiClient.post("/seats/book", {
-      userId,
-      seatId,
-    });
-
+    const response = await apiClient.post("/seats/book", { userId, seatId });
     return response;
   } catch (error) {
-    console.log(error);
     if (error.response) {
       console.error("Response body:", error.response.data);
+    } else {
+      console.error("Error inesperado en bookSeat:", error);
     }
+    throw error;
   }
-  return null;
 };
 
 export const createRandomSeats = async ({ flightId, numberOfSeats }) => {
