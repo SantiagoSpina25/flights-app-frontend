@@ -61,7 +61,6 @@ export const UsersPage = () => {
               <tr key={us.id} style={{ height: "65px" }}>
                 <td className="text-center fw-semibold">{us.id}</td>
                 <td>{us.username}</td>
-                <td>{us.password}</td>
                 <td>{`$${us.balance}`}</td>
                 <td>{us.admin ? "✅" : "❌"}</td>
                 <td>
@@ -76,7 +75,7 @@ export const UsersPage = () => {
                     <span className="text-muted">Sin tickets</span>
                   )}
                 </td>
-                {user.admin ? (
+                {(user.admin && (user.id != us.id)) ? (
                   <td className="text-center">
                     <RemoveButton
                       handlerRemove={handlerRemoveUser}

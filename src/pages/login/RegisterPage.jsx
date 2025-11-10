@@ -33,12 +33,11 @@ export const RegisterPage = () => {
     setLoading(false);
 
     if (!res || res.error) {
-      const msg =
-        res?.data?.message ??
-        res?.data?.errors?.join(", ") ??
-        res?.message ??
-        "Error al registrarse";
-      setError(msg);
+      const status = res.data.status;
+      const msg = res.data.message;
+      status == 409
+        ? setError("Ya existe un usuario con ese nombre")
+        : setError(msg);
       return;
     }
 

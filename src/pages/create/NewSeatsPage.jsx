@@ -5,7 +5,7 @@ import { createSeat, findAll } from "../../services/AppService";
 export const NewSeatsPage = () => {
   const [form, setForm] = useState({
     number: "",
-    class_type: "",
+    classType: "",
     status: "AVAILABLE",
     flightId: "",
   });
@@ -23,7 +23,7 @@ export const NewSeatsPage = () => {
 
     const seat = {
       number: form.number.trim(),
-      class_type: form.class_type.trim().toUpperCase(),
+      classType: form.class_type.trim().toUpperCase(),
       status: form.status.toUpperCase(),
       flightId: form.flightId.trim(),
     };

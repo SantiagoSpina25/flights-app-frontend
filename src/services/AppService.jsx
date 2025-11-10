@@ -80,11 +80,11 @@ export const createFlight = async ({
   return null;
 };
 
-export const createSeat = async ({ number, class_type, status, flightId }) => {
+export const createSeat = async ({ number, classType, status, flightId }) => {
   try {
     const response = await apiClient.post("/seats", {
       number,
-      class_type,
+      classType,
       status,
       flightId,
     });

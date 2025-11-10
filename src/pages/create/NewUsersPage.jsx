@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createUser } from "../../services/AppService";
 import { registerRequest } from "../../services/AuthService";
 
 export const NewUsersPage = () => {
@@ -9,6 +8,7 @@ export const NewUsersPage = () => {
     password: "",
     admin: false,
   });
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -21,16 +21,27 @@ export const NewUsersPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(null);
     if (!form.username.trim() || !form.password)
       return setError("Rellena usuario y contraseña.");
     const res = await registerRequest(form);
-    if (res) navigate("/users");
+
+    if (!res || res.error) {
+      const status = res.data.status;
+      const msg = res.data.message;
+      status == 409
+        ? setError("Ya existe un usuario con ese nombre")
+        : setError(msg);
+      return;
+    }
+
+    navigate("/users");
   };
 
   return (
     <div className="container mt-5">
       <h2 className="mb-4">Crear nuevo usuario</h2>
-
+      {error && <div className="alert alert-danger">{error}</div>}
       <form onSubmit={handleSubmit} className="col-md-6 mx-auto">
         <div className="mb-3">
           <label className="form-label required">Nombre de usuario</label>
