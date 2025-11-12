@@ -39,7 +39,7 @@ export const TicketsPage = () => {
       input: "number",
       inputLabel: "Ingrese la cantidad de dinero para agregar",
       inputPlaceholder: "Ej: $1000",
-      inputAttributes: { step: 100 },
+      inputAttributes: { step: 50 },
       showCancelButton: true,
       confirmButtonText: "Agregar",
       cancelButtonText: "Cancelar",

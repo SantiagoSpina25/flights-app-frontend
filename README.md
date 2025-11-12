@@ -2,7 +2,9 @@
 
 
 Interfaz de usuario para la aplicación Flights App, una plataforma para gestionar vuelos, reservas y usuarios.
-Este proyecto consume el backend desarrollado con Spring Boot y utiliza autenticación JWT para proteger las rutas.
+Este proyecto consume el backend desarrollado con Spring Boot, protegiendo las rutas con roles y JWT, además de diversas funcionalidades.
+
+![App gif](./public/flights-app.gif)
 
 ---
 
