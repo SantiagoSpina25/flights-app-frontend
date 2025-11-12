@@ -16,8 +16,7 @@ Este proyecto consume el backend desarrollado con Spring Boot, protegiendo las r
 - **Axios**
 - **jwt-decode**
 - **SweetAlert2**
-- **ESLint**
-- **Node.js & npm**
+- *npm**
 
 
 ---
