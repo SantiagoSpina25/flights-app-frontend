@@ -7,7 +7,7 @@ export const Footer = () => {
   return (
     <footer className="bg-dark text-light py-4 mt-4 position-relative">
       <p className="mb-0 text-center">
-        © {new Date().getFullYear()} Flight App — Todos los derechos reservados
+        © {new Date().getFullYear()} Flights App
         ✈️
       </p>
 
