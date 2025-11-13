@@ -61,29 +61,12 @@ Este proyecto consume el backend desarrollado con Spring Boot, protegiendo las r
 
 ---
 
-## 📁 Estructura del proyecto
-
-```
-/src
-  /assets          
-  /components
-  /context     
-  /pages  
-  /routes         
-  /services
-  App.jsx
-  index.css        
-  main.jsx         
-```
-
----
-
 ## ⚙️ Configuración y ejecución (local)
 
 ### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/tuusuario/flights-app-frontend.git
+git clone https://github.com/SantiagoSpina25/flights-app-frontend.git
 
 cd flights-app-frontend
 ```
@@ -102,6 +85,23 @@ npm run dev
 La aplicación por defecto estará disponible en:
 ```http
 http://localhost:5173
+```
+
+---
+
+## 📁 Estructura del proyecto
+
+```
+/src
+  /assets          
+  /components
+  /context     
+  /pages  
+  /routes         
+  /services
+  App.jsx
+  index.css        
+  main.jsx         
 ```
 
 ---
