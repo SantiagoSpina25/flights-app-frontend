@@ -108,7 +108,7 @@ http://localhost:5173
 
 ## 🤝 Conexión con el backend
 
-* Repositorio backend: [flights-app-backend]("https://github.com/SantiagoSpina25/flights-app-backend")
+* Repositorio backend: **[flights-app-backend]("https://github.com/SantiagoSpina25/flights-app-backend")**
 
 * Asegúrate de iniciar el backend antes de usar el frontend.
 
