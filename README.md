@@ -1,14 +1,17 @@
 # ✈️ Flights App — Frontend
 
+🌐 Available Languages:  
+[English](README.md) | [Español](README.es.md)
 
-Interfaz de usuario para la aplicación Flights App, una plataforma para gestionar vuelos, reservas y usuarios.
-Este proyecto consume el backend desarrollado con Spring Boot, protegiendo las rutas con roles y JWT, además de diversas funcionalidades.
+
+User interface for Flights App, a platform to manage flights, bookings, and users.
+This project consumes the backend developed with Spring Boot, protecting routes with roles and JWT, along with various features.
 
 ![App gif](./public/flights-app.gif)
 
 ---
 
-## 🚀 Tecnologías utilizadas
+## 🚀 Technologies Used
 
 - **React** (^19.1.1)
 - **Vite** (dev server / build)
@@ -16,37 +19,36 @@ Este proyecto consume el backend desarrollado con Spring Boot, protegiendo las r
 - **Axios**
 - **jwt-decode**
 - **SweetAlert2**
-- *npm**
+- **npm**
 
 
 ---
 
-## ✨ Características y funcionalidades
+## ✨ Features & Functionality
 
-### 🔐 Seguridad y autenticación
-- Autenticación segura con **JWT**
-- Roles de usuario: **Administrador** y **Usuario**
-- Rutas protegidas según permisos
+### 🛫 Flight & Airline Management
+- Full CRUD for **flights**, **users**, **airlines**, and **seats**
+- Manual generation of **random seats** for a flight
+- Real-time **seat reservation**
+- **Automatic price calculation** based on seat class and the distance between origin and destination airports
 
-### 🛫 Gestión de vuelos y aerolíneas
-- CRUD completo de **vuelos**, **usuarios**, **aerolíneas** y **asientos**
-- Generación manual de **asientos aleatorios** para un vuelo
-- **Reserva de asientos** disponibles en tiempo real
-- **Cálculo automático del precio** según la clase del asiento y la **distancia** entre aeropuertos de origen y destino
+### 💳 User Operations
+- Ability to **add balance** to the user account
+- **Seat purchase** based on class and availability
 
-### 💳 Operaciones de usuario
-- Posibilidad de **agregar saldo** a la cuenta del usuario
-- **Compra de asientos** según clase y disponibilidad
+### 🧭 Navigation & User Experience
+- Smooth and intuitive navigation between protected routes
+- Custom **error / access denied page**
+- Clear **validation and error messages** for every operation
 
-### 🧭 Navegación y experiencia de uso
-- Navegación fluida e intuitiva entre rutas protegidas
-- Página personalizada de **error o acceso denegado**
-- Manejo de **mensajes de validación y errores** claros en cada operación
-
+### 🔐 Security & Authentication
+- Secure authentication with **JWT**
+- User roles: **Administrator** and **User**
+- Protected routes based on permissions
 
 ---
 
-## 🖼️ Vista previa
+## 🖼️ Preview
 ### Página de inicio
 ![Home page](./public/home-page.png)
 
@@ -61,35 +63,34 @@ Este proyecto consume el backend desarrollado con Spring Boot, protegiendo las r
 
 ---
 
-## ⚙️ Configuración y ejecución (local)
+## ⚙️ Setup & Local Execution
 
-### 1. Clonar el repositorio
+### 1. Clone the repository
 
 ```bash
-git clone https://github.com/SantiagoSpina25/flights-app-frontend.git
+git clone https://github.com/SantiagoS25/flights-app-frontend.git
 
 cd flights-app-frontend
 ```
 
-### 2. Instalar dependencias
+### 2. Install dependencies
 
 ```bash
 npm install
 ```
 
-### 3. Ejecutar en modo desarrollo
+### 3. Run in development mode
 ```bash
 npm run dev
 ```
 
-La aplicación por defecto estará disponible en:
+The application will be available at:
 ```http
 http://localhost:5173
 ```
-
 ---
 
-## 📁 Estructura del proyecto
+## 📁 Project Structure
 
 ```
 /src
@@ -106,58 +107,59 @@ http://localhost:5173
 
 ---
 
-## 🤝 Conexión con el backend
+## 🤝 Connecting to the Backend
 
-* Repositorio backend: **[flights-app-backend](https://github.com/SantiagoSpina25/flights-app-backend)**
+* Backend repository: [flights-app-backend](https://github.com/SantiagoSpina25/flights-app-backend)
 
-* Asegúrate de iniciar el backend antes de usar el frontend.
+* Make sure to start the backend before using the frontend.
 
-* Ambos proyectos deben compartir la misma configuración de CORS y URL base.
+* Both projects must share the same CORS configuration and base URL.
 
 ---
 
-## 🌐 Roles: Usuario y Administrador
-En la aplicación existen dos roles principales: **usuario** y **administrador**.  
-La diferencia clave es que el administrador puede acceder a endpoints protegidos y realizar acciones restringidas que los usuarios normales no pueden ejecutar.
+## 🌐 Roles: User and Administrator
+The application has two main roles: **user** and **administrator**.  
+The key difference is that the administrator can access protected endpoints and perform restricted operations that regular users cannot.
 
-En la interfaz, el rol del usuario se indica visualmente en el **footer**:  
-si el usuario es administrador, aparecerá el siguiente distintivo:
+In the UI, the user’s role is visually indicated in the footer:
+If the user is an administrator, the following badge appears:
 
 ![Admin Badge](./public/admin-badge.png)
 
-En cambio, los usuarios estándar **no verán** los componentes o botones que permiten realizar acciones administrativas, como **crear una aerolínea, eliminar un usuario, generar asientos para un vuelo, etc**.
+Meanwhile, standard users **won't see** the components or buttons that allow administrative actions, such as **creating an airline, deleting a user, generating seats for a flight, etc**.
 
 ---
 
-## 🔐 Autenticación (JWT)
+## 🔐 Authentication (JWT)
 
-- El sistema utiliza **JWT** (Bearer Token).
+- The system uses **JWT** (Bearer Token).
 
-- Todas las rutas están protegidas, excepto:
+- All routes are protected except:
 
   -  `/login`
 
   -  `/register`
 
-- Al iniciar sesión, el token se guarda en el localStorage y se adjunta automáticamente en las peticiones a la API.
+- When logging in, the token is stored in localStorage and automatically attached to API requests.
 
 ---
 
-## 🧠 Próximas mejoras
-- 🔍 Filtrado avanzado por ciudad o aerolínea  
-- 📱 Versión responsive para móviles  
-- ✈️ Vista del avion para reserva de asientos
+## 🧠 Upcoming Improvements
+
+- 🔍 Advanced filtering by city or airline
+- 📱 Responsive mobile version
+- ✈️ Airplane seat-map view for reservations
 
 ---
 
-## 👨‍💻 Autor
+## 👨‍💻 Author
 
-**Desarrollado por [Santiago Spina](https://github.com/SantiagoSpina25)**   
-💡 Proyecto personal para practicar desarrollo fullstack con Spring Boot + React.
+**Developed by [Santiago Spina](https://github.com/SantiagoSpina25)**   
+💡 Personal project to practice full-stack development with Spring Boot + React.
 
 ---
 
-## 🛡️ Licencia
+## 🛡️ License
 
-Este proyecto se distribuye bajo la licencia **MIT**.  
-Puedes usarlo, modificarlo y compartirlo libremente.
+This project is distributed under the **MIT License**.
+You are free to use, modify, and share it.
