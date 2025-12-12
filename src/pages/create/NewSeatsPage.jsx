@@ -9,6 +9,7 @@ export const NewSeatsPage = () => {
     status: "AVAILABLE",
     flightId: "",
   });
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [flightsIds, setFlightsIds] = useState([]);
   const navigate = useNavigate();
@@ -29,7 +30,9 @@ export const NewSeatsPage = () => {
     };
 
     try {
+      setLoading(true);
       const result = await createSeat(seat);
+      setLoading(false);
       console.log(result);
       if (!result) {
         setError("Error al crear el asiento. Intenta de nuevo.");
@@ -38,6 +41,7 @@ export const NewSeatsPage = () => {
 
       navigate("/seats");
     } catch (err) {
+      setLoading(false);
       console.error(err);
       setError("Ocurrió un error al conectar con el servidor.");
     }
@@ -142,8 +146,12 @@ export const NewSeatsPage = () => {
           </div>
 
           <div className="d-flex justify-content-start">
-            <button type="submit" className="btn btn-success me-3">
-              Crear
+            <button
+              type="submit"
+              className="btn btn-success me-3"
+              disabled={loading}
+            >
+              {loading ? "Creando..." : "Crear"}
             </button>
 
             <button

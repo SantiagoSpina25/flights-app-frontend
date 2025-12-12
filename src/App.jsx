@@ -24,7 +24,7 @@ export const App = () => {
     <BrowserRouter>
       <div className="d-flex flex-column min-vh-100">
         <NavBar />
-        <div className="mt-4 mb-4 flex-grow-1">
+        <div className="flex-grow-1">
           <Routes>
             <Route path="/" element={<Navigate to="/home" />} />
 

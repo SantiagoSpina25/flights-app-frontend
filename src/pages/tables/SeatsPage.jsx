@@ -7,11 +7,27 @@ import { AuthContext } from "../../context/AuthContext";
 
 export const SeatsPage = () => {
   const [seats, setSeats] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const { user } = useContext(AuthContext);
+
   //Obtiene los asientos del backend
   const getSeats = async () => {
-    const result = await findAll("seats");
-    setSeats(result.data);
+    setLoading(true);
+    setError(null);
+    try {
+      const result = await findAll("seats");
+      setSeats(result.data);
+    } catch (err) {
+      setError(
+        err?.response?.data?.message ??
+        err?.response?.data ??
+        err?.message ??
+        "Error al cargar los asientos"
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   //Cuando cambie, obtiene los asientos
@@ -30,6 +46,28 @@ export const SeatsPage = () => {
     //Filtra todos los asientos que no tengan el mismo id que el que fue eliminado
     setSeats(seats.filter((seat) => seat.id != id));
   };
+
+  if (loading) {
+    return (
+      <div className="container mt-5 text-center">
+        <div className="spinner-border" role="status"></div>
+        <p className="mt-3">Cargando asientos...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="container mt-5">
+        <div className="alert alert-danger">{String(error)}</div>
+        <div className="text-center">
+          <button className="btn btn-secondary" onClick={getSeats}>
+            Reintentar
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="container mt-5">

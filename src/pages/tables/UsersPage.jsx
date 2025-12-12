@@ -8,11 +8,27 @@ import { AuthContext } from "../../context/AuthContext";
 
 export const UsersPage = () => {
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const { user } = useContext(AuthContext);
+
   //Obtiene los usuarios del backend
   const getUsers = async () => {
-    const result = await findAll("users");
-    setUsers(result.data);
+    setLoading(true);
+    setError(null);
+    try {
+      const result = await findAll("users");
+      setUsers(result.data);
+    } catch (err) {
+      setError(
+        err?.response?.data?.message ??
+        err?.response?.data ??
+        err?.message ??
+        "Error al cargar los usuarios"
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   //Cuando cambie, obtiene los usuarios
@@ -30,6 +46,28 @@ export const UsersPage = () => {
     //Filtra todos los usuarios que no tengan el mismo id que el que fue eliminado
     setUsers(users.filter((user) => user.id != id));
   };
+
+  if (loading) {
+    return (
+      <div className="container mt-5 text-center">
+        <div className="spinner-border" role="status"></div>
+        <p className="mt-3">Cargando usuarios...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="container mt-5">
+        <div className="alert alert-danger">{String(error)}</div>
+        <div className="text-center">
+          <button className="btn btn-secondary" onClick={getUsers}>
+            Reintentar
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="container mt-5">

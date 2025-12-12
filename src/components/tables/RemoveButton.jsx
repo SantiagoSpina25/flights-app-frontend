@@ -12,10 +12,18 @@ export const RemoveButton = ({ handlerRemove, id }) => {
       cancelButtonColor: "#3085d6",
       confirmButtonText: "Sí, eliminar",
       cancelButtonText: "Cancelar",
+      showLoaderOnConfirm: true,
+      preConfirm: async () => {
+        try {
+          await handlerRemove(id);
+        } catch (error) {
+          Swal.showValidationMessage(`Error al eliminar: ${error}`);
+        }
+      },
+      allowOutsideClick: () => !Swal.isLoading(),
     });
 
     if (result.isConfirmed) {
-      handlerRemove(id); // elimina el registro
       Swal.fire("Eliminado", "El registro ha sido eliminado.", "success");
     }
   };

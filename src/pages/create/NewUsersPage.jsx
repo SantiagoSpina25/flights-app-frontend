@@ -8,6 +8,7 @@ export const NewUsersPage = () => {
     password: "",
     admin: false,
   });
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
@@ -24,7 +25,9 @@ export const NewUsersPage = () => {
     setError(null);
     if (!form.username.trim() || !form.password)
       return setError("Rellena usuario y contraseña.");
+    setLoading(true);
     const res = await registerRequest(form);
+    setLoading(false);
 
     if (!res || res.error) {
       const status = res.data.status;
@@ -96,8 +99,12 @@ export const NewUsersPage = () => {
           </div>
         </div>
 
-        <button type="submit" className="btn btn-success me-3">
-          Crear
+        <button
+          type="submit"
+          className="btn btn-success me-3"
+          disabled={loading}
+        >
+          {loading ? "Creando..." : "Crear"}
         </button>
         <button
           type="button"

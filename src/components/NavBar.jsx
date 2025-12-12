@@ -15,7 +15,9 @@ export const NavBar = () => {
     <header>
       <nav
         className="navbar navbar-expand-lg navbar-dark"
-        style={{ backgroundColor: "#6A1B2A" }}
+        style={{
+          background: "linear-gradient(135deg, #064093 0%, #0077FF 50%, #3a88e8ff 100%)",
+        }}
       >
         <div className="container-fluid px-4 d-flex justify-content-between align-items-center">
           <Link className="navbar-brand fw-bold text-white" to="/">

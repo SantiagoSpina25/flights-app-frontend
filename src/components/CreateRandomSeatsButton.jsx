@@ -23,7 +23,19 @@ export const CreateRandomSeatsButton = ({ flightId, onGenerated }) => {
     if (!seatCount) return;
 
     try {
-      const result = await createRandomSeats({flightId: flightId, numberOfSeats:parseInt(seatCount, 10)});
+      Swal.fire({
+        title: "Generando asientos...",
+        text: "Por favor espere",
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        },
+      });
+
+      const result = await createRandomSeats({
+        flightId: flightId,
+        numberOfSeats: parseInt(seatCount, 10),
+      });
 
       if (!result || result.error) {
         throw (
@@ -42,7 +54,6 @@ export const CreateRandomSeatsButton = ({ flightId, onGenerated }) => {
 
       // Llamar al callback para que el padre actualice los datos
       onGenerated();
-
     } catch (error) {
       console.error("createRandomSeats error:", error);
       Swal.fire({

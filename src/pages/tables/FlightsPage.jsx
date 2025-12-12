@@ -8,13 +8,28 @@ import { AuthContext } from "../../context/AuthContext";
 
 export const FlightsPage = () => {
   const [flights, setFlights] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
   //Obtiene los vuelos del backend
   const getFlights = async () => {
-    const result = await findAll("flights");
-    setFlights(result.data);
+    setLoading(true);
+    setError(null);
+    try {
+      const result = await findAll("flights");
+      setFlights(result.data);
+    } catch (err) {
+      setError(
+        err?.response?.data?.message ??
+        err?.response?.data ??
+        err?.message ??
+        "Error al cargar los vuelos"
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   //Cuando cambie, obtiene los vuelos
@@ -33,6 +48,28 @@ export const FlightsPage = () => {
     //Filtra todos los vuelos que no tengan el mismo id que el que fue eliminado
     setFlights(flights.filter((flight) => flight.id != id));
   };
+
+  if (loading) {
+    return (
+      <div className="container mt-5 text-center">
+        <div className="spinner-border" role="status"></div>
+        <p className="mt-3">Cargando vuelos...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="container mt-5">
+        <div className="alert alert-danger">{String(error)}</div>
+        <div className="text-center">
+          <button className="btn btn-secondary" onClick={getFlights}>
+            Reintentar
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="container mt-5">

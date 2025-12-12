@@ -4,6 +4,7 @@ import { useState } from "react";
 
 export const NewAirlinesPage = () => {
   const [form, setForm] = useState({ name: "", description: "" });
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
@@ -22,7 +23,9 @@ export const NewAirlinesPage = () => {
     }
 
     try {
+      setLoading(true);
       const result = await createAirline(form);
+      setLoading(false);
 
       if (!result) {
         setError("Error al crear la aerolínea. Intenta de nuevo.");
@@ -31,6 +34,7 @@ export const NewAirlinesPage = () => {
 
       navigate("/airlines");
     } catch (err) {
+      setLoading(false);
       console.error(err);
       setError("Ocurrió un error al conectar con el servidor.");
     }
@@ -80,8 +84,12 @@ export const NewAirlinesPage = () => {
           </div>
 
           <div className="d-flex justify-content-start">
-            <button type="submit" className="btn btn-success me-3">
-              Crear
+            <button
+              type="submit"
+              className="btn btn-success me-3"
+              disabled={loading}
+            >
+              {loading ? "Creando..." : "Crear"}
             </button>
 
             <button

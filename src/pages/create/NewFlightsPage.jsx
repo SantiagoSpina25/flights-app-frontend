@@ -14,6 +14,7 @@ export const NewFlightsPage = () => {
     hour: horaActual,
     airlineId: "",
   });
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [airlinesIds, setAirlinesIds] = useState([]);
   const [airports, setAirports] = useState([]);
@@ -43,7 +44,9 @@ export const NewFlightsPage = () => {
     };
 
     try {
+      setLoading(true);
       const result = await createFlight(flight);
+      setLoading(false);
       console.log(result);
       if (!result) {
         setError("Error al crear el vuelo. Intenta de nuevo.");
@@ -52,6 +55,7 @@ export const NewFlightsPage = () => {
 
       navigate("/flights");
     } catch (err) {
+      setLoading(false);
       console.error(err);
       setError("Ocurrió un error al conectar con el servidor.");
     }
@@ -205,8 +209,12 @@ export const NewFlightsPage = () => {
           </div>
 
           <div className="d-flex justify-content-start">
-            <button type="submit" className="btn btn-success me-3">
-              Crear
+            <button
+              type="submit"
+              className="btn btn-success me-3"
+              disabled={loading}
+            >
+              {loading ? "Creando..." : "Crear"}
             </button>
 
             <button
