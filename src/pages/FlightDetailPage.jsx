@@ -23,8 +23,8 @@ export const FlightDetailPage = () => {
       console.error(error);
       setError(
         error?.response?.data?.message ??
-          err?.response?.data ??
-          "Error al obtener los detalles del vuelo"
+        err?.response?.data ??
+        "Error al obtener los detalles del vuelo"
       );
     } finally {
       setLoading(false);
@@ -37,11 +37,12 @@ export const FlightDetailPage = () => {
 
   if (loading) {
     return (
-      <div className="container mt-5">
-        <div className="text-center py-5">
-          <div className="spinner-border text-light" role="status" />
-          <p className="mt-3">Cargando vuelo...</p>
-        </div>
+      <div
+        className="container d-flex flex-column justify-content-center align-items-center"
+        style={{ minHeight: "80vh" }}
+      >
+        <div className="spinner-border" role="status" />
+        <p className="mt-3">Cargando vuelo...</p>
       </div>
     );
   }
@@ -144,19 +145,18 @@ export const FlightDetailPage = () => {
                   className="progress-bar"
                   role="progressbar"
                   style={{
-                    width: `${
-                      flight.seats.total > 0
-                        ? Math.round(
-                            (flight.seats.sold / flight.seats.total) * 100
-                          )
-                        : 0
-                    }%`,
+                    width: `${flight.seats.total > 0
+                      ? Math.round(
+                        (flight.seats.sold / flight.seats.total) * 100
+                      )
+                      : 0
+                      }%`,
                   }}
                   aria-valuenow={
                     flight.seats.total > 0
                       ? Math.round(
-                          (flight.seats.sold / flight.seats.total) * 100
-                        )
+                        (flight.seats.sold / flight.seats.total) * 100
+                      )
                       : 0
                   }
                   aria-valuemin="0"

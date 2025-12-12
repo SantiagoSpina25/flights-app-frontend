@@ -3,19 +3,23 @@ export const TableHead = ({ table, admin }) => {
     users: ["ID", "Usuario", "Balance", "Admin", "Tickets", "Eliminar"],
     airlines: ["ID", "Nombre", "Descripción", "Vuelos", "Eliminar"],
     flights: ["ID", "Origen", "Destino", "Fecha", "Hora", "Aerolinea", "Eliminar"],
-    seats: ["ID", "Número", "Clase", "Estado","Precio","Vuelo", "Eliminar"]
+    seats: ["ID", "Número", "Clase", "Estado", "Precio", "Vuelo", "Eliminar"]
   };
 
   let headers = headersByTable[table] || [];
 
-  if(!admin){
+  if (!admin) {
     headers = headers.filter(h => h !== "Eliminar");
   }
 
   return (
     <thead
       className="table-dark sticky-top"
-      style={{ backgroundColor: "#6A1B2A", top: 0, zIndex: 2 }}
+      style={{
+        background: "linear-gradient(90deg, #064093, #0077FF)",
+        top: 0,
+        zIndex: 2,
+      }}
     >
       <tr>
         {headers.map((header, index) => (

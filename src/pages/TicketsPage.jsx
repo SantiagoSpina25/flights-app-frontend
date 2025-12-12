@@ -24,9 +24,9 @@ export const TicketsPage = () => {
     } catch (err) {
       setError(
         err?.response?.data?.message ??
-          err?.response?.data ??
-          err?.message ??
-          "Error al cargar los tickets"
+        err?.response?.data ??
+        err?.message ??
+        "Error al cargar los tickets"
       );
     } finally {
       setLoading(false);
@@ -94,7 +94,10 @@ export const TicketsPage = () => {
 
   if (loading) {
     return (
-      <div className="container mt-5 text-center">
+      <div
+        className="container d-flex flex-column justify-content-center align-items-center"
+        style={{ minHeight: "80vh" }}
+      >
         <div className="spinner-border" role="status"></div>
         <p className="mt-3">Cargando tus tickets...</p>
       </div>

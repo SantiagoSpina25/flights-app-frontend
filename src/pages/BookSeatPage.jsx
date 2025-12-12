@@ -5,8 +5,8 @@ import Swal from "sweetalert2";
 
 export const BookSeatPage = () => {
   const [form, setForm] = useState({ userId: "", seatId: "" });
-  const [seatsIds, setSeatsIds] = useState([]);
-  const [usersIds, setUsersIds] = useState([]);
+  const [seats, setSeats] = useState([]);
+  const [users, setUsers] = useState([]);
   const [loadingSubmit, setLoadingSubmit] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
 
@@ -52,99 +52,141 @@ export const BookSeatPage = () => {
     }
   };
 
-  const getSeatsIds = async () => {
+  const getSeats = async () => {
     try {
       const result = await findAll("seats");
       const availableSeats = result.data.filter((s) => s.status == "AVAILABLE");
-      const availableSeatsIds = availableSeats.map((s) => s.id);
-      setSeatsIds(availableSeatsIds);
+      setSeats(availableSeats);
     } catch (error) {
       console.error(error);
     }
   };
 
-  const getUsersIds = async () => {
+  const getUsers = async () => {
     try {
       const result = await findAll("users");
-      const usersIdsFound = result.data.map((u) => u.id);
-      setUsersIds(usersIdsFound);
+      setUsers(result.data);
     } catch (error) {
       console.error(error);
     }
   };
 
   useEffect(() => {
-    getSeatsIds();
-    getUsersIds();
+    getSeats();
+    getUsers();
   }, []);
 
   return (
-    <div className="container mt-5">
-      <h2 className="mb-4">Reservar un asiento para un usuario</h2>
+    <div className="container mt-5 fade-in">
+      <div className="row justify-content-center">
+        <div className="col-md-8 col-lg-6">
+          <div className="card shadow-lg border-0 rounded-4 overflow-hidden">
+            <div
+              className="card-header text-white text-center py-4"
+              style={{
+                background: "linear-gradient(135deg, #064093 0%, #0077FF 100%)",
+              }}
+            >
+              <h2 className="mb-0 fw-bold">
+                <i className="bi bi-calendar-check-fill me-2"></i>
+                Reservar para Usuario
+              </h2>
+            </div>
+            <div className="card-body p-5 bg-light-subtle">
+              {errorMessage && (
+                <div className="alert alert-danger mb-4 shadow-sm rounded-3">
+                  <i className="bi bi-exclamation-triangle-fill me-2"></i>
+                  {errorMessage}
+                </div>
+              )}
 
-      <form onSubmit={handleSubmit} className="col-md-6 mx-auto">
-        {errorMessage && (
-          <div className="alert alert-danger">{errorMessage}</div>
-        )}
+              <form onSubmit={handleSubmit}>
+                <div className="mb-4">
+                  <label htmlFor="userId" className="form-label fw-bold text-secondary">
+                    Seleccionar Usuario
+                  </label>
+                  <select
+                    id="userId"
+                    name="userId"
+                    className="form-select form-select-lg shadow-sm border-0"
+                    onChange={handleChange}
+                    value={form.userId}
+                    required
+                    style={{ backgroundColor: "#fff" }}
+                  >
+                    <option value="">-- Buscar usuario --</option>
+                    {users.map((user) => (
+                      <option key={user.id} value={user.id}>
+                        {user.username} (ID: {user.id}) - Balance: ${user.balance}
+                      </option>
+                    ))}
+                  </select>
+                </div>
 
-        <div className="mb-3">
-          <label htmlFor="userId" className="form-label required">
-            Id del usuario
-          </label>
-          <select
-            id="userId"
-            name="userId"
-            className="form-select"
-            onChange={handleChange}
-            value={form.userId}
-            required
-          >
-            <option value="">Selecciona el id del usuario</option>
-            {usersIds.map((id) => (
-              <option key={id} value={id}>
-                {id}
-              </option>
-            ))}
-          </select>
+                <div className="mb-4">
+                  <label htmlFor="seatId" className="form-label fw-bold text-secondary">
+                    Seleccionar Asiento
+                  </label>
+                  <select
+                    id="seatId"
+                    name="seatId"
+                    className="form-select form-select-lg shadow-sm border-0"
+                    onChange={handleChange}
+                    value={form.seatId}
+                    required
+                    style={{ backgroundColor: "#fff" }}
+                  >
+                    <option value="">-- Elige un asiento disponible --</option>
+                    {seats.map((seat) => (
+                      <option key={seat.id} value={seat.id}>
+                        {seat.number} - {seat.classType} - ${seat.price} (Vuelo #{seat.flightId})
+                      </option>
+                    ))}
+                  </select>
+                  <div className="form-text mt-2 ms-1">
+                    Solo se muestran los asientos con estado "AVAILABLE".
+                  </div>
+                </div>
+
+                <div className="d-grid gap-2">
+                  <button
+                    type="submit"
+                    className="btn btn-lg fw-bold text-white shadow-sm"
+                    disabled={loadingSubmit}
+                    style={{
+                      background: "linear-gradient(to right, #961484, #DA498C)",
+                      border: "none",
+                    }}
+                  >
+                    {loadingSubmit ? (
+                      <>
+                        <span
+                          className="spinner-border spinner-border-sm me-2"
+                          role="status"
+                          aria-hidden="true"
+                        ></span>
+                        Procesando...
+                      </>
+                    ) : (
+                      <>
+                        Confirmar Reserva <i className="bi bi-check-lg ms-2"></i>
+                      </>
+                    )}
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-outline-secondary btn-lg border-0"
+                    onClick={() => navigate("/users")}
+                    disabled={loadingSubmit}
+                  >
+                    Cancelar
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
-
-        <div className="mb-3">
-          <label htmlFor="seatId" className="form-label required">
-            Id del asiento
-          </label>
-          <select
-            id="seatId"
-            name="seatId"
-            className="form-select"
-            onChange={handleChange}
-            value={form.seatId}
-            required
-          >
-            <option value="">Selecciona el id del asiento</option>
-            {seatsIds.map((id) => (
-              <option key={id} value={id}>
-                {id}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <button
-          type="submit"
-          className="btn btn-success me-3"
-          disabled={loadingSubmit}
-        >
-          {loadingSubmit ? "Reservando..." : "Reservar"}
-        </button>
-        <button
-          type="button"
-          className="btn btn-danger"
-          onClick={() => navigate("/users")}
-          disabled={loadingSubmit}
-        >
-          Cancelar
-        </button>
-      </form>
+      </div>
     </div>
   );
 };

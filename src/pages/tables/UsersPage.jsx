@@ -49,7 +49,10 @@ export const UsersPage = () => {
 
   if (loading) {
     return (
-      <div className="container mt-5 text-center">
+      <div
+        className="container d-flex flex-column justify-content-center align-items-center"
+        style={{ minHeight: "80vh" }}
+      >
         <div className="spinner-border" role="status"></div>
         <p className="mt-3">Cargando usuarios...</p>
       </div>
@@ -70,63 +73,85 @@ export const UsersPage = () => {
   }
 
   return (
-    <div className="container mt-5">
-      <h2 className="text-center mb-5 display-6 fw-bold text-dark">
-        Tabla de usuarios
-      </h2>
-      <CreateButton table={"users"} />
-      <BookSeatButton />
-      <div
-        className="table-responsive"
-        style={{
-          maxHeight: "400px",
-          overflowY: "auto",
-          borderRadius: "10px",
-          boxShadow: "0 0 10px rgba(0, 0, 0, 0.15)",
-        }}
-      >
-        <table
-          className="table table-bordered table-hover align-middle mb-0"
-          style={{
-            fontSize: "1.1rem",
-            width: "100%",
-            minWidth: "1200px",
-          }}
-        >
-          <TableHead table={"users"} admin={user.admin} />
-          <tbody>
-            {users.map((us) => (
-              <tr key={us.id} style={{ height: "65px" }}>
-                <td className="text-center fw-semibold">{us.id}</td>
-                <td>{us.username}</td>
-                <td>{`$${us.balance}`}</td>
-                <td>{us.admin ? "✅" : "❌"}</td>
-                <td>
-                  {us.tickets.length > 0 ? (
-                    us.tickets
-                      .map(
-                        (ticket) =>
-                          ticket.flightId + " (" + ticket.seatNumber + ") "
-                      )
-                      .join(", ")
-                  ) : (
-                    <span className="text-muted">Sin tickets</span>
-                  )}
-                </td>
-                {(user.admin && (user.id != us.id)) ? (
-                  <td className="text-center">
-                    <RemoveButton
-                      handlerRemove={handlerRemoveUser}
-                      id={us.id}
-                    />
-                  </td>
-                ) : (
-                  <></>
-                )}
-              </tr>
-            ))}
-          </tbody>
-        </table>
+    <div className="container mt-5 fade-in">
+      <div className="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4 gap-3">
+        <h2 className="display-6 fw-bold mb-0" style={{ color: "#064093" }}>
+          <i className="bi bi-people-fill me-3"></i>
+          Tabla de usuarios
+        </h2>
+        <div className="d-flex gap-2">
+          <BookSeatButton />
+          <CreateButton table={"users"} />
+        </div>
+      </div>
+
+      <div className="card border-0 shadow-lg rounded-4 overflow-hidden">
+        <div className="card-body p-0">
+          <div
+            className="table-responsive"
+            style={{
+              maxHeight: "600px",
+              overflowY: "auto",
+            }}
+          >
+            <table
+              className="table table-hover align-middle mb-0"
+              style={{
+                fontSize: "1rem",
+                width: "100%",
+                minWidth: "1000px",
+              }}
+            >
+              <TableHead table={"users"} admin={user.admin} />
+              <tbody>
+                {users.map((us) => (
+                  <tr key={us.id} style={{ height: "60px" }}>
+                    <td className="text-center fw-bold text-secondary">
+                      #{us.id}
+                    </td>
+                    <td className="fw-semibold">{us.username}</td>
+                    <td className="text-success fw-bold">{`$${us.balance}`}</td>
+                    <td className="text-center">
+                      {us.admin ? (
+                        <span className="badge bg-primary rounded-pill">
+                          Admin
+                        </span>
+                      ) : (
+                        <span className="badge bg-secondary rounded-pill">
+                          User
+                        </span>
+                      )}
+                    </td>
+                    <td>
+                      {us.tickets.length > 0 ? (
+                        us.tickets
+                          .map(
+                            (ticket) =>
+                              ticket.flightId + " (" + ticket.seatNumber + ") "
+                          )
+                          .join(", ")
+                      ) : (
+                        <span className="text-muted small fst-italic">
+                          Sin tickets
+                        </span>
+                      )}
+                    </td>
+                    {user.admin && user.id != us.id ? (
+                      <td className="text-center">
+                        <RemoveButton
+                          handlerRemove={handlerRemoveUser}
+                          id={us.id}
+                        />
+                      </td>
+                    ) : (
+                      <></>
+                    )}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   );
