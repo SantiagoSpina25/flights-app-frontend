@@ -109,7 +109,7 @@ export const SeatsPage = () => {
                     <td className="fw-semibold text-center">{seat.number}</td>
                     <td>
                       {seat.classType === "BUSINESS" ||
-                        seat.classType === "FIRST" ? (
+                        seat.classType === "FIRST_CLASS" ? (
                         <span className="badge bg-warning text-dark">
                           {seat.classType}
                         </span>
