@@ -1,12 +1,40 @@
 import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 
 export const HomePage = () => {
   const { user } = useContext(AuthContext);
+  const [showBanner, setShowBanner] = useState(true);
 
   return (
     <div className="home-page fade-in">
+      {/* Banner de aviso */}
+      {showBanner && (
+        <div
+          className="alert alert-warning alert-dismissible fade show text-center mb-0 rounded-0 border-0 shadow-sm"
+          role="alert"
+          style={{
+            background: "#fff3cd",
+            color: "#856404",
+            position: "relative",
+            zIndex: 10,
+          }}
+        >
+          <div className="container">
+            <i className="bi bi-exclamation-triangle-fill me-2"></i>
+            <strong>Aviso importante:</strong> Las consultas pueden demorar inicialmente unos
+            instantes debido a que el sistema utiliza un servicio de hosting
+            gratuito. ¡Gracias por su paciencia!
+            <button
+              type="button"
+              className="btn-close"
+              onClick={() => setShowBanner(false)}
+              aria-label="Close"
+            ></button>
+          </div>
+        </div>
+      )}
+
       {/* Hero Section */}
       <div
         className="text-white text-center d-flex flex-column align-items-center justify-content-center"
@@ -119,7 +147,7 @@ export const HomePage = () => {
           <div className="row align-items-center">
             <div className="col-md-6 mb-4 mb-md-0">
               <h2 className="fw-bold text-dark mb-3">
-                Gestión inteligente para tu aerolínea
+                Gestión inteligente para tus aerolíneas
               </h2>
               <p className="text-muted mb-4">
                 Optimiza cada aspecto de tu operación. Desde la programación de
