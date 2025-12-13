@@ -94,7 +94,6 @@ http://localhost:5173
 
 ```
 /src
-  /assets          
   /components
   /context     
   /pages  

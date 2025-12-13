@@ -19,7 +19,7 @@ Este proyecto consume el backend desarrollado con Spring Boot, protegiendo las r
 - **Axios**
 - **jwt-decode**
 - **SweetAlert2**
-- *npm**
+- **npm**
 
 
 ---
@@ -96,7 +96,6 @@ http://localhost:5173
 
 ```
 /src
-  /assets          
   /components
   /context     
   /pages  
