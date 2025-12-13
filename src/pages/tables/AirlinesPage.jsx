@@ -116,7 +116,7 @@ export const AirlinesPage = () => {
                               key={f.id}
                               className="badge bg-info text-dark rounded-pill"
                             >
-                              Vuelo {f.id}
+                              {f.id}
                             </span>
                           ))}
                           {airline.flights.length > 5 && (
