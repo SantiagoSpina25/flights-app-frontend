@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { TicketCard } from "../components/TicketCard";
 import { addBalance, findById } from "../services/AppService";
 import { BookSeatButton } from "../components/tables/BookSeatbutton";
 import Swal from "sweetalert2";
+import { AuthContext } from "../context/AuthContext";
 
 export const TicketsPage = () => {
   const { userId } = useParams();
+  const { user } = useContext(AuthContext);
   const [tickets, setTickets] = useState([]);
   const [balance, setBalance] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -17,17 +19,21 @@ export const TicketsPage = () => {
     setLoading(true);
     setError(null);
     try {
-      const user = await findById("users", userId);
+      const result = await findById("users", userId);
 
-      setTickets(user.data.tickets);
-      setBalance(user.data.balance);
+      setTickets(result.data.tickets);
+      setBalance(result.data.balance);
     } catch (err) {
-      setError(
-        err?.response?.data?.message ??
-        err?.response?.data ??
-        err?.message ??
-        "Error al cargar los tickets"
-      );
+      if (err?.response?.status === 404) {
+        setError("El usuario solicitado no existe.");
+      } else {
+        setError(
+          err?.response?.data?.message ??
+          err?.response?.data ??
+          err?.message ??
+          "Error al cargar los tickets"
+        );
+      }
     } finally {
       setLoading(false);
     }
@@ -89,8 +95,12 @@ export const TicketsPage = () => {
   };
 
   useEffect(() => {
+    if (user && !user.admin && user.id != userId) {
+      navigate("/forbidden");
+      return;
+    }
     getUser();
-  }, []);
+  }, [userId]);
 
   if (loading) {
     return (
@@ -109,7 +119,7 @@ export const TicketsPage = () => {
       <div className="container mt-5">
         <div className="alert alert-danger">{String(error)}</div>
         <div className="text-center">
-          <button className="btn btn-secondary" onClick={load}>
+          <button className="btn btn-secondary" onClick={getUser}>
             Reintentar
           </button>
         </div>
