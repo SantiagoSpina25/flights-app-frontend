@@ -86,8 +86,9 @@ export const FlightsPage = () => {
 
       <div className="card border-0 shadow-lg rounded-4 overflow-hidden">
         <div className="card-body p-0">
+          {/* Desktop View */}
           <div
-            className="table-responsive"
+            className="table-responsive d-none d-lg-block"
             style={{
               maxHeight: "600px",
               overflowY: "auto",
@@ -135,7 +136,7 @@ export const FlightsPage = () => {
                       </span>
                     </td>
                     {user.admin ? (
-                      <td className="text-center">
+                      <td className="text-center" onClick={(e) => e.stopPropagation()}>
                         <RemoveButton
                           handlerRemove={handlerRemoveFlight}
                           id={flight.id}
@@ -148,6 +149,68 @@ export const FlightsPage = () => {
                 ))}
               </tbody>
             </table>
+          </div>
+
+          {/* Mobile View */}
+          <div className="d-lg-none p-3 bg-light">
+            {flights.map((flight) => (
+              <div
+                key={flight.id}
+                className="card border-0 shadow-sm rounded-4 mb-3"
+                onClick={() => navigate(`/flights/${flight.id}`)}
+                style={{ cursor: "pointer" }}
+              >
+                <div className="card-body">
+                  <div className="d-flex justify-content-between align-items-center mb-3">
+                    <span className="badge bg-light text-secondary border">
+                      #{flight.id}
+                    </span>
+                    <span className="badge bg-light text-dark border">
+                      {flight.airlineName}
+                    </span>
+                  </div>
+
+                  <div className="d-flex align-items-center mb-3 bg-light p-2 rounded-3">
+                    <div className="text-center flex-grow-1">
+                      <div className="h5 fw-bold mb-0">{flight.originCity}</div>
+                      <small className="text-muted">
+                        <i className="bi bi-geo-alt-fill text-danger"></i> Origen
+                      </small>
+                    </div>
+                    <div className="mx-2 text-muted">
+                      <i className="bi bi-arrow-right fs-4"></i>
+                    </div>
+                    <div className="text-center flex-grow-1">
+                      <div className="h5 fw-bold mb-0">{flight.destinationCity}</div>
+                      <small className="text-muted">
+                        <i className="bi bi-geo-alt-fill text-success"></i> Destino
+                      </small>
+                    </div>
+                  </div>
+
+                  <div className="d-flex justify-content-between text-muted small border-top pt-2">
+                    <span>
+                      <i className="bi bi-calendar-event me-1"></i> {flight.date}
+                    </span>
+                    <span>
+                      <i className="bi bi-clock me-1"></i> {flight.hour}
+                    </span>
+                  </div>
+
+                  {user.admin && (
+                    <div
+                      className="d-flex justify-content-center mt-2 pt-2 border-top"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <RemoveButton
+                        handlerRemove={handlerRemoveFlight}
+                        id={flight.id}
+                      />
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

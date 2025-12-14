@@ -84,8 +84,9 @@ export const AirlinesPage = () => {
 
       <div className="card border-0 shadow-lg rounded-4 overflow-hidden">
         <div className="card-body p-0">
+          {/* Desktop View */}
           <div
-            className="table-responsive"
+            className="table-responsive d-none d-lg-block"
             style={{
               maxHeight: "600px",
               overflowY: "auto",
@@ -145,6 +146,56 @@ export const AirlinesPage = () => {
                 ))}
               </tbody>
             </table>
+          </div>
+
+          {/* Mobile View */}
+          <div className="d-lg-none p-3 bg-light">
+            {airlines.map((airline) => (
+              <div key={airline.id} className="card border-0 shadow-sm rounded-4 mb-3">
+                <div className="card-body">
+                  <div className="d-flex justify-content-between align-items-center mb-2">
+                    <span className="badge bg-light text-secondary border">#{airline.id}</span>
+                  </div>
+
+                  <h5 className="card-title fw-bold mb-2">{airline.name}</h5>
+                  <p className="text-muted small mb-3">{airline.description}</p>
+
+                  <div className="mb-3">
+                    <small className="text-muted d-block mb-2 text-uppercase fw-bold" style={{ fontSize: '0.75rem' }}>Vuelos</small>
+                    {airline.flights.length > 0 ? (
+                      <div className="d-flex flex-wrap gap-1">
+                        {airline.flights.slice(0, 10).map((f) => (
+                          <span
+                            key={f.id}
+                            className="badge bg-info text-dark rounded-pill"
+                          >
+                            {f.id}
+                          </span>
+                        ))}
+                        {airline.flights.length > 10 && (
+                          <span className="badge bg-secondary rounded-pill">
+                            +{airline.flights.length - 10} más
+                          </span>
+                        )}
+                      </div>
+                    ) : (
+                      <span className="text-muted small fst-italic">
+                        Sin vuelos
+                      </span>
+                    )}
+                  </div>
+
+                  {user.admin && (
+                    <div className="d-flex justify-content-center mt-3 pt-3 border-top">
+                      <RemoveButton
+                        handlerRemove={handlerRemoveAirline}
+                        id={airline.id}
+                      />
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

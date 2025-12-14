@@ -2,6 +2,7 @@ label.required::after {
   content: " *";
   color: red;
 }
+
 .btn-custom-logout {
   background-color: white;
   color: #961484;
@@ -21,4 +22,58 @@ label.required::after {
 
 .navbar-nav .nav-link:hover {
   color: #DA498C !important;
+}
+
+/* Mobile Menu Styles */
+@media (max-width: 991.98px) {
+  .navbar-collapse {
+    background: rgba(6, 64, 147, 0.95);
+    backdrop-filter: blur(10px);
+    margin: 0 -1.5rem;
+    padding: 1rem 2.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  }
+
+  .navbar-nav .nav-item {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .navbar-nav .nav-item:last-child {
+    border-bottom: none;
+  }
+
+  .navbar-nav .nav-link {
+    padding: 1rem 0 !important;
+    font-size: 1.1rem;
+    color: white !important;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .navbar-nav .nav-link:after {
+    content: "›";
+    font-size: 1.5rem;
+    opacity: 0.5;
+  }
+
+  .navbar-nav .nav-link:hover,
+  .navbar-nav .nav-link:active {
+    background-color: rgba(255, 255, 255, 0.05);
+    padding-left: 10px !important;
+    color: #DA498C !important;
+  }
+
+  .btn-custom-logout {
+    width: 100%;
+    margin-top: 1rem;
+    padding: 0.75rem;
+  }
 }

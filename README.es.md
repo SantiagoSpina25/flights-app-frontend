@@ -147,7 +147,6 @@ En cambio, los usuarios estándar **no verán** los componentes o botones que pe
 
 ## 🧠 Próximas mejoras
 - 🔍 Filtrado avanzado por ciudad o aerolínea  
-- 📱 Versión responsive para móviles  
 - ✈️ Vista del avion para reserva de asientos
 
 ---

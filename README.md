@@ -146,7 +146,6 @@ Meanwhile, standard users **won't see** the components or buttons that allow adm
 ## 🧠 Upcoming Improvements
 
 - 🔍 Advanced filtering by city or airline
-- 📱 Responsive mobile version
 - ✈️ Airplane seat-map view for reservations
 
 ---

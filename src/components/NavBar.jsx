@@ -15,7 +15,7 @@ export const NavBar = () => {
   return (
     <header>
       <nav
-        className="navbar navbar-expand-lg navbar-dark"
+        className="navbar navbar-expand-lg navbar-dark position-relative"
         style={{
           background: "linear-gradient(135deg, #064093 0%, #0077FF 50%, #3a88e8ff 100%)",
         }}
@@ -38,7 +38,7 @@ export const NavBar = () => {
 
           {/* Menú principal */}
           <div
-            className={`collapse navbar-collapse justify-content-center ${!isNavCollapsed ? "show" : ""
+            className={`collapse navbar-collapse justify-content-lg-center ${!isNavCollapsed ? "show" : ""
               }`}
             id="navbarNav"
           >

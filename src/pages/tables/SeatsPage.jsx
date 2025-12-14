@@ -84,8 +84,9 @@ export const SeatsPage = () => {
 
       <div className="card border-0 shadow-lg rounded-4 overflow-hidden">
         <div className="card-body p-0">
+          {/* Desktop View */}
           <div
-            className="table-responsive"
+            className="table-responsive d-none d-lg-block"
             style={{
               maxHeight: "600px",
               overflowY: "auto",
@@ -142,6 +143,48 @@ export const SeatsPage = () => {
                 ))}
               </tbody>
             </table>
+          </div>
+
+          {/* Mobile View */}
+          <div className="d-lg-none p-3 bg-light">
+            {seats.map((seat) => (
+              <div key={seat.id} className="card border-0 shadow-sm rounded-4 mb-3">
+                <div className="card-body">
+                  <div className="d-flex justify-content-between align-items-center mb-2">
+                    <span className="badge bg-light text-secondary border">#{seat.id}</span>
+                    <span className="badge bg-light text-dark border">Asiento {seat.number}</span>
+                  </div>
+
+                  <div className="mb-3 d-flex justify-content-between align-items-center">
+                    <span className="fw-bold fs-5 text-success">${seat.price}</span>
+                    {seat.classType === "BUSINESS" || seat.classType === "FIRST_CLASS" ? (
+                      <span className="badge bg-warning text-dark">{seat.classType}</span>
+                    ) : (
+                      <span className="badge bg-light text-dark border">{seat.classType}</span>
+                    )}
+                  </div>
+
+                  <div className="d-flex justify-content-between align-items-center mb-3 p-2 bg-light rounded-3">
+                    {/* Status Badge */}
+                    {seat.status === "AVAILABLE" ? (
+                      <span className="badge bg-success">Disponible</span>
+                    ) : (
+                      <span className="badge bg-danger">Ocupado</span>
+                    )}
+                    <small className="text-muted fw-bold">Vuelo #{seat.flightId}</small>
+                  </div>
+
+                  {user.admin && (
+                    <div className="d-flex justify-content-center mt-2 pt-2 border-top">
+                      <RemoveButton
+                        handlerRemove={handlerRemoveSeat}
+                        id={seat.id}
+                      />
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

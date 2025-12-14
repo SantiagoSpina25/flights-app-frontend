@@ -87,8 +87,9 @@ export const UsersPage = () => {
 
       <div className="card border-0 shadow-lg rounded-4 overflow-hidden">
         <div className="card-body p-0">
+          {/* Desktop View */}
           <div
-            className="table-responsive"
+            className="table-responsive d-none d-lg-block"
             style={{
               maxHeight: "600px",
               overflowY: "auto",
@@ -150,6 +151,56 @@ export const UsersPage = () => {
                 ))}
               </tbody>
             </table>
+          </div>
+
+          {/* Mobile View */}
+          <div className="d-lg-none p-3 bg-light">
+            {users.map((us) => (
+              <div key={us.id} className="card border-0 shadow-sm rounded-4 mb-3">
+                <div className="card-body">
+                  <div className="d-flex justify-content-between align-items-center mb-2">
+                    <span className="badge bg-light text-secondary border">#{us.id}</span>
+                    {us.admin ? (
+                      <span className="badge bg-primary rounded-pill">Admin</span>
+                    ) : (
+                      <span className="badge bg-secondary rounded-pill">User</span>
+                    )}
+                  </div>
+
+                  <h5 className="card-title fw-bold mb-1">{us.username}</h5>
+                  <p className="text-success fw-bold h5 mb-3">{`$${us.balance}`}</p>
+
+                  <div className="mb-3">
+                    <small className="text-muted d-block mb-1 text-uppercase fw-bold" style={{ fontSize: '0.75rem' }}>Tickets</small>
+                    <div className="bg-light p-2 rounded-3 border">
+                      {us.tickets.length > 0 ? (
+                        <span className="small">
+                          {us.tickets
+                            .map(
+                              (ticket) =>
+                                `Vuelo ${ticket.flightId} (${ticket.seatNumber})`
+                            )
+                            .join(", ")}
+                        </span>
+                      ) : (
+                        <span className="text-muted small fst-italic">
+                          Sin tickets
+                        </span>
+                      )}
+                    </div>
+                  </div>
+
+                  {user.admin && user.id != us.id && (
+                    <div className="d-flex justify-content-center mt-3 pt-3 border-top">
+                      <RemoveButton
+                        handlerRemove={handlerRemoveUser}
+                        id={us.id}
+                      />
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
