@@ -1,10 +1,11 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 export const NavBar = () => {
   const { user, isAuthenticated, logout } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [isNavCollapsed, setIsNavCollapsed] = useState(true);
 
   const handleLogout = () => {
     logout();
@@ -27,56 +28,94 @@ export const NavBar = () => {
           <button
             className="navbar-toggler"
             type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
+            onClick={() => setIsNavCollapsed(!isNavCollapsed)}
             aria-controls="navbarNav"
-            aria-expanded="false"
+            aria-expanded={!isNavCollapsed}
             aria-label="Toggle navigation"
           >
             <span className="navbar-toggler-icon"></span>
           </button>
 
           {/* Menú principal */}
-          {isAuthenticated ? (
-            <div
-              className="collapse navbar-collapse justify-content-center"
-              id="navbarNav"
-            >
-              <ul className="navbar-nav gap-3">
+          <div
+            className={`collapse navbar-collapse justify-content-center ${!isNavCollapsed ? "show" : ""
+              }`}
+            id="navbarNav"
+          >
+            {isAuthenticated && (
+              <ul className="navbar-nav gap-3 text-center">
                 <li className="nav-item">
-                  <Link className="nav-link" to={`/users/${user.id}`}>
+                  <Link
+                    className="nav-link"
+                    to={`/users/${user.id}`}
+                    onClick={() => setIsNavCollapsed(true)}
+                  >
                     Mis tickets
                   </Link>
                 </li>
-                {user.admin ? (
+                {user.admin && (
                   <li className="nav-item">
-                    <Link className="nav-link" to="/users">
+                    <Link
+                      className="nav-link"
+                      to="/users"
+                      onClick={() => setIsNavCollapsed(true)}
+                    >
                       Usuarios
                     </Link>
                   </li>
-                ) : (
-                  <></>
                 )}
                 <li className="nav-item">
-                  <Link className="nav-link" to="/airlines">
+                  <Link
+                    className="nav-link"
+                    to="/airlines"
+                    onClick={() => setIsNavCollapsed(true)}
+                  >
                     Aerolíneas
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/flights">
+                  <Link
+                    className="nav-link"
+                    to="/flights"
+                    onClick={() => setIsNavCollapsed(true)}
+                  >
                     Vuelos
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/seats">
+                  <Link
+                    className="nav-link"
+                    to="/seats"
+                    onClick={() => setIsNavCollapsed(true)}
+                  >
                     Asientos
                   </Link>
                 </li>
               </ul>
+            )}
+            {/* Botones para móvil (d-lg-none) */}
+            <div className="d-lg-none text-center mt-3">
+              {isAuthenticated ? (
+                <button
+                  onClick={() => {
+                    handleLogout();
+                    setIsNavCollapsed(true);
+                  }}
+                  className="btn btn-custom-logout fw-semibold"
+                >
+                  Logout
+                </button>
+              ) : (
+                <Link
+                  className="btn btn-custom-logout fw-semibold"
+                  to="/login"
+                  onClick={() => setIsNavCollapsed(true)}
+                >
+                  Login
+                </Link>
+              )}
             </div>
-          ) : (
-            <></>
-          )}
+          </div>
 
           <div className="d-none d-lg-block">
             {isAuthenticated ? (
